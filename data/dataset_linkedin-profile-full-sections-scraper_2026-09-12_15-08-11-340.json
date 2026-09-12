@@ -1,0 +1,653 @@
+[{
+  "profileUrl": "https://linkedin.com/in/kavya-h-j",
+  "basic_info": {
+    "fullname": "Kavya Hosamane Jayanna",
+    "first_name": "Kavya",
+    "last_name": "Hosamane Jayanna",
+    "headline": "Full Stack AI Engineer | RAG · LLM · .NET · React · AWS | MS CS @ Binghamton ’26",
+    "public_identifier": "kavya-h-j",
+    "profile_url": "https://linkedin.com/in/kavya-h-j",
+    "profile_picture_url": "https://media.licdn.com/dms/image/v2/D4E03AQG3Li0DTOv-kA/profile-displayphoto-crop_800_800/B4EZyx.ttfHgAM-/0/1772512534666?e=1790812800&v=beta&t=tqsoMZEi3M-mJky_wtIX4V2401PEXr9WkVDPejdrtes",
+    "about": "Graduated with a Master's degree in Computer Science from Binghamton University and a Bachelor's degree in Electronics and Communication from MVJ College of Engineering, this professional is AWS Certified Cloud Practitioner with expertise in Amazon EC2, AWS Identity and Access Management (IAM), and Git.  \n\nAt Happiest Minds Technologies, contributed as a Senior Software Engineer, focusing on developing innovative solutions and leveraging cloud technologies. Dedicated to creating scalable systems while ensuring effective collaboration within teams to address complex challenges.",
+    "location": {
+      "country": "United States",
+      "city": "Greater Binghamton",
+      "full": "Greater Binghamton",
+      "postal_code": "",
+      "country_code": "US"
+    },
+    "creator_hashtags": [],
+    "is_creator": false,
+    "is_influencer": false,
+    "is_premium": true,
+    "open_to_work": false,
+    "created_timestamp": 1506094832262,
+    "show_follower_count": false,
+    "background_picture_url": "https://media.licdn.com/dms/image/v2/D5616AQE2SrDkHyAOXA/profile-displaybackgroundimage-shrink_350_1400/B56ZkRXMMOHUAg-/0/1756932916924?e=1790812800&v=beta&t=BLu2JncP4Z-cbbkklbjsw63Ltxv2c0yv5aUMo485PRU",
+    "memorialized": false,
+    "is_top_voice": false,
+    "primary_locale": "en_US",
+    "urn": "ACoAACQ54fMBbRvIJMfAbBc_GGpxwmDmby5JXsI",
+    "follower_count": 1287,
+    "connection_count": 1264,
+    "current_company": "Neuro20 Technologies",
+    "current_company_urn": "64623419",
+    "current_company_url": "https://www.linkedin.com/company/neurotwenty",
+    "current_company_logo_url": "https://media.licdn.com/dms/image/v2/D4E0BAQGRGasXc-f7sg/company-logo_400_400/B4EZ9n2IxGKoAU-/0/1784153673183/neurotwenty_logo?e=1790812800&v=beta&t=GY_2qnSVFuRbnccFEvCimQ2A10LTQclcV8Ybndca1do",
+    "top_education_school": {
+      "name": "Thomas J. Watson College of Engineering and Applied Science, Binghamton University",
+      "urn": "3162070",
+      "url": "https://www.linkedin.com/school/watson-college",
+      "logo_url": "https://media.licdn.com/dms/image/v2/C4D0BAQHZ1vB2fYuwLQ/company-logo_400_400/company-logo_400_400/0/1631327553498?e=1790812800&v=beta&t=rtZrOLNK1p9mM2j1DWQH8tnAOyht_RolgrmZYExpzfA"
+    },
+    "is_verified": true,
+    "top_skills": [],
+    "email": null
+  },
+  "experience": [
+    {
+      "title": "Product Design & Data Analytics Intern",
+      "company": "Neuro20 Technologies",
+      "company_logo_url": "https://media.licdn.com/dms/image/v2/D4E0BAQGRGasXc-f7sg/company-logo_400_400/B4EZ9n2IxGKoAU-/0/1784153673183/neurotwenty_logo?e=1790812800&v=beta&t=GY_2qnSVFuRbnccFEvCimQ2A10LTQclcV8Ybndca1do",
+      "duration": "Aug 2026 - Present · 2 mos",
+      "location": "",
+      "location_type": "",
+      "employment_type": "",
+      "company_linkedin_url": "https://www.linkedin.com/company/64623419/",
+      "company_id": "64623419",
+      "description": "",
+      "start_date": {
+        "year": 2026,
+        "month": "Aug"
+      },
+      "end_date": {},
+      "is_current": true,
+      "skills": [
+        "Machine Learning",
+        "Data Engineering"
+      ],
+      "skills_url": "/in/kavya-h-j/overlay/3002419819/skill-associations-details/"
+    },
+    {
+      "title": "Research Assistant - Generative AI & Multimodal Research",
+      "company": "Binghamton University School of Management",
+      "company_logo_url": "",
+      "duration": "May 2026 - Present · 5 mos",
+      "location": "Binghamton, NY",
+      "location_type": "",
+      "employment_type": "Part-time",
+      "company_linkedin_url": "https://www.linkedin.com/school/15102168/",
+      "company_id": "15102168",
+      "description": "• Building a Retrieval-Augmented Generation (RAG) chatbot enhanced with a knowledge graph, evaluating retrieval and response strategies across 4 experimental conditions using ChromaDB as the vector store for chunk retrieval",
+      "start_date": {
+        "year": 2026,
+        "month": "May"
+      },
+      "end_date": {},
+      "is_current": true,
+      "skills": [],
+      "skills_url": ""
+    },
+    {
+      "title": "Research Assistant",
+      "company": "Binghamton University School of Management",
+      "company_logo_url": "",
+      "duration": "Jan 2026 - May 2026 · 5 mos",
+      "location": "",
+      "location_type": "",
+      "employment_type": "Part-time",
+      "company_linkedin_url": "https://www.linkedin.com/school/15102168/",
+      "company_id": "15102168",
+      "description": "• Built an experimental chatbot system for educational research, developing a chat UI frontend integrated with a GPT API backend, implementing A/B testing for system prompt variations, conversation logging to a database, and Qualtrics survey integration for data collection \n• Reproduced an attention-based deep learning model for multimodal neuroimaging fusion, aligning structural MRI (ICA-derived gray matter components) with dynamic functional connectivity states from resting-state fMRI to study brain structure-function relationships in schizophrenia",
+      "start_date": {
+        "year": 2026,
+        "month": "Jan"
+      },
+      "end_date": {
+        "year": 2026,
+        "month": "May"
+      },
+      "is_current": false,
+      "skills": [],
+      "skills_url": ""
+    },
+    {
+      "title": "Senior Software Engineer",
+      "company": "Happiest Minds Technologies",
+      "company_logo_url": "https://media.licdn.com/dms/image/v2/D560BAQHrStoH8fGuxw/company-logo_400_400/B56ZwiMfPGHcAY-/0/1770100227699/happiest_minds_technologies_logo?e=1790812800&v=beta&t=9EflNMdyMFFC7Kb1bj_VYICezvIwaSgyVDSR8sdQ-ik",
+      "duration": "Aug 2024 - Dec 2024 · 5 mos",
+      "location": "",
+      "location_type": "",
+      "employment_type": "Full-time",
+      "company_linkedin_url": "https://www.linkedin.com/company/2315800/",
+      "company_id": "2315800",
+      "description": "",
+      "start_date": {
+        "year": 2024,
+        "month": "Aug"
+      },
+      "end_date": {
+        "year": 2024,
+        "month": "Dec"
+      },
+      "is_current": false,
+      "skills": [],
+      "skills_url": ""
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Happiest Minds Technologies",
+      "company_logo_url": "https://media.licdn.com/dms/image/v2/D560BAQHrStoH8fGuxw/company-logo_400_400/B56ZwiMfPGHcAY-/0/1770100227699/happiest_minds_technologies_logo?e=1790812800&v=beta&t=9EflNMdyMFFC7Kb1bj_VYICezvIwaSgyVDSR8sdQ-ik",
+      "duration": "Aug 2022 - Aug 2024 · 2 yrs 1 mo",
+      "location": "Karnataka, India",
+      "location_type": "On-site",
+      "employment_type": "Full-time",
+      "company_linkedin_url": "https://www.linkedin.com/company/2315800/",
+      "company_id": "2315800",
+      "description": "",
+      "start_date": {
+        "year": 2022,
+        "month": "Aug"
+      },
+      "end_date": {
+        "year": 2024,
+        "month": "Aug"
+      },
+      "is_current": false,
+      "skills": [],
+      "skills_url": ""
+    }
+  ],
+  "education": [
+    {
+      "school": "Thomas J. Watson College of Engineering and Applied Science, Binghamton University",
+      "degree": "Master's degree, Computer Science",
+      "degree_name": "Master's degree",
+      "field_of_study": "Computer Science",
+      "duration": "Jan 2025 – Present",
+      "school_linkedin_url": "https://www.linkedin.com/school/27093913/",
+      "school_id": "27093913",
+      "description": "",
+      "activities": "",
+      "grade": "3.9",
+      "skills": [],
+      "school_logo_url": "https://media.licdn.com/dms/image/v2/C4D0BAQHZ1vB2fYuwLQ/company-logo_400_400/company-logo_400_400/0/1631327553498?e=1790812800&v=beta&t=rtZrOLNK1p9mM2j1DWQH8tnAOyht_RolgrmZYExpzfA",
+      "start_date": {
+        "year": 2025,
+        "month": "Jan"
+      },
+      "end_date": {}
+    },
+    {
+      "school": "MVJ College of Engineering, Bangalore, India",
+      "degree": "Bachelor of Engineering - BE, Electronics and communication",
+      "degree_name": "Bachelor of Engineering - BE",
+      "field_of_study": "Electronics and communication",
+      "duration": "2018 – 2022",
+      "school_linkedin_url": "https://www.linkedin.com/school/2817173/",
+      "school_id": "2817173",
+      "description": "",
+      "activities": "",
+      "grade": "8.4",
+      "skills": [],
+      "school_logo_url": "https://media.licdn.com/dms/image/v2/C510BAQEVgrD6_AyHpw/company-logo_400_400/company-logo_400_400/0/1630597272236/mvj_college_of_engineering_bangalore_india_logo?e=1790812800&v=beta&t=2egtipC9MUEZfXZGNYB_91ZbD_lrk78J7qmF6SC4rRU",
+      "start_date": {
+        "year": 2018
+      },
+      "end_date": {
+        "year": 2022
+      }
+    }
+  ],
+  "certifications": [
+    {
+      "name": "SQL (Intermediate)",
+      "issuer": "HackerRank",
+      "issued_date": "Issued Jul 2026",
+      "organization_urn": "urn:li:fsd_company:435210",
+      "credential_id": "",
+      "expiration_date": null,
+      "skills": [
+        "SQL",
+        "MySQL"
+      ],
+      "credential_url": "https://www.hackerrank.com/certificates/iframe/3ae853d799a6"
+    },
+    {
+      "name": "SQL (Basic)",
+      "issuer": "HackerRank",
+      "issued_date": "Issued Jul 2026",
+      "organization_urn": "urn:li:fsd_company:435210",
+      "credential_id": "",
+      "expiration_date": null,
+      "skills": [],
+      "credential_url": "https://www.hackerrank.com/certificates/d0b671554b7e"
+    },
+    {
+      "name": "Python (Basic) Certificate",
+      "issuer": "HackerRank",
+      "issued_date": "Issued Jul 2026",
+      "organization_urn": "urn:li:fsd_company:435210",
+      "credential_id": "https://www.hackerrank.com/certificates/321059a706e2",
+      "expiration_date": null,
+      "skills": [
+        "Python (Programming Language)"
+      ],
+      "credential_url": ""
+    },
+    {
+      "name": "Google AI Essentials",
+      "issuer": "Google",
+      "issued_date": "Issued Jun 2026",
+      "organization_urn": "urn:li:fsd_company:1441",
+      "credential_id": "",
+      "expiration_date": null,
+      "skills": [
+        "AI Evaluation",
+        "Prompt Engineering"
+      ],
+      "credential_url": "https://www.coursera.org/account/accomplishments/specialization/TPDKA1FYUF4F"
+    },
+    {
+      "name": "AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents",
+      "issuer": "Udemy",
+      "issued_date": "Issued Jun 2026",
+      "organization_urn": "urn:li:fsd_company:822535",
+      "credential_id": "UC-1b838de2-ae7b-4175-94dd-0ab461dd92da",
+      "expiration_date": null,
+      "skills": [
+        "Large Language Models (LLM)",
+        "Retrieval-Augmented Generation (RAG)"
+      ],
+      "credential_url": ""
+    },
+    {
+      "name": "Certificate+of+Completion:+Al+Fluency+Framework+",
+      "issuer": "Anthropic",
+      "issued_date": "Issued May 2026",
+      "organization_urn": "urn:li:fsd_company:74126343",
+      "credential_id": "s9e978qct2a6",
+      "expiration_date": null,
+      "skills": [
+        "AI Fluency"
+      ],
+      "credential_url": "https://verify.skilljar.com/c/s9e978qct2a6"
+    },
+    {
+      "name": "Certificate of completion: Introduction to Claude Cowork",
+      "issuer": "Anthropic",
+      "issued_date": "Issued May 2026",
+      "organization_urn": "urn:li:fsd_company:74126343",
+      "credential_id": "mh8um9mqdkmk",
+      "expiration_date": null,
+      "skills": [
+        "Claude Cowork"
+      ],
+      "credential_url": "https://verify.skilljar.com/c/mh8um9mqdkmk"
+    },
+    {
+      "name": "Certificate of completion: Claude code 101",
+      "issuer": "Anthropic",
+      "issued_date": "Issued May 2026",
+      "organization_urn": "urn:li:fsd_company:74126343",
+      "credential_id": "ra333bbjagrd",
+      "expiration_date": null,
+      "skills": [],
+      "credential_url": "https://verify.skilljar.com/c/ra333bbjagrd"
+    },
+    {
+      "name": "Certificate of completion: Claude 101",
+      "issuer": "Anthropic",
+      "issued_date": "Issued Mar 2026",
+      "organization_urn": "urn:li:fsd_company:74126343",
+      "credential_id": "wy4uyhicm6bf",
+      "expiration_date": null,
+      "skills": [],
+      "credential_url": "https://verify.skilljar.com/c/wy4uyhicm6bf"
+    },
+    {
+      "name": "AWS Certified Cloud Practitioner",
+      "issuer": "Amazon Web Services (AWS)",
+      "issued_date": "Issued Sep 2025",
+      "organization_urn": "urn:li:fsd_company:2382910",
+      "credential_id": "",
+      "expiration_date": null,
+      "skills": [],
+      "credential_url": "https://www.credly.com/badges/6c2eb559-60ac-4e7f-bcb2-7e1c64e6e3b0/linked_in_profile"
+    }
+  ],
+  "featured": [
+    {
+      "type": "link",
+      "title": "kavyahj04",
+      "description": "GitHub",
+      "url": "https://www.linkedin.com/in/kavya-h-j/overlay/1780082490108/single-media-viewer?type=LINK&profileId=ACoAACQ54fMBbRvIJMfAbBc_GGpxwmDmby5JXsI",
+      "image_url": "https://media.licdn.com/dms/image/sync/v2/D4E27AQFI3AvStlUImw/articleshare-shrink_800/B4EZ51LsT0LAAc-/0/1780082460427?e=1789833600&v=beta&t=9chNyyKzX5zMd0jN5w9MHaD27c0EkbjW65NNOIO8Yu0"
+    },
+    {
+      "type": "link",
+      "title": "Kavya_hj - LeetCode Profile",
+      "description": "LeetCode",
+      "url": "https://leetcode.com/u/Kavya_hj/",
+      "image_url": "https://media.licdn.com/dms/image/sync/v2/D5627AQGCKcVsq3T6mQ/articleshare-shrink_800/B56Z47XjUnIYAc-/0/1779112491274?e=1789833600&v=beta&t=DI0EvordnailY_oCNnFlBpyIAUlFUnN1WTQ-OCDQS4E"
+    },
+    {
+      "type": "link",
+      "title": "Portfolio",
+      "description": "my-porttfolio-lemon.vercel.app",
+      "url": "https://my-porttfolio-lemon.vercel.app/",
+      "image_url": "https://media.licdn.com/dms/image/v2/D4E2DAQF6lW4VyVx5Xg/profile-treasury-image-shrink_8192_8192/B4EZxan2sYHQAg-/0/1771046924102?e=1789833600&v=beta&t=r0hqL98mPUrF9x2y8OS_7RqAUDhyS9zo6QTPTq8KKss"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Motivation - Daily quotes",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "AI Analytics",
+      "endorsement_count": 0,
+      "related_experiences": [
+        "Product Design & Data Analytics Intern at Neuro20 Technologies"
+      ]
+    },
+    {
+      "name": "Data Engineering",
+      "endorsement_count": 0,
+      "related_experiences": [
+        "Product Design & Data Analytics Intern at Neuro20 Technologies"
+      ]
+    },
+    {
+      "name": "Dashboard Metrics",
+      "endorsement_count": 0,
+      "related_experiences": [
+        "Product Design & Data Analytics Intern at Neuro20 Technologies"
+      ]
+    },
+    {
+      "name": "Machine Learning",
+      "endorsement_count": 0,
+      "related_experiences": [
+        "Product Design & Data Analytics Intern at Neuro20 Technologies"
+      ]
+    },
+    {
+      "name": "MySQL",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "SQL",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Query Optimization",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Vector Embeddings",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Gradio",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Text-to-Speech",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Convolutional Neural Networks (CNN)",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "NumPy",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Scikit-Learn",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "TensorFlow",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "PyTorch",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "LangChain",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Hugging Face Products",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Bootstrap (Framework)",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Node.js",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "FastAPI",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "C++",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Python (Programming Language)",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Prompt Engineering",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Artificial Intelligence (AI)",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "AI Evaluation",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Retrieval-Augmented Generation (RAG)",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Agents",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "QLoRA",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Large Language Models (LLM)",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "AI Fluency",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Claude Cowork",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Next.js",
+      "endorsement_count": 1,
+      "related_experiences": []
+    },
+    {
+      "name": "TypeScript",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Redis",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "PostgreSQL",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "REST APIs",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "OpenAI API",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Full-Stack Development",
+      "endorsement_count": 1,
+      "related_experiences": []
+    },
+    {
+      "name": "Amazon EC2",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "AWS Identity and Access Management (AWS IAM)",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Git",
+      "endorsement_count": 1,
+      "related_experiences": []
+    },
+    {
+      "name": "Redux.js",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Scrum",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Postman API",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Elasticsearch",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Kanban",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": ".NET Core",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Microservices",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "API Development",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Front-End Development",
+      "endorsement_count": 1,
+      "related_experiences": []
+    },
+    {
+      "name": "Web Development",
+      "endorsement_count": 1,
+      "related_experiences": []
+    },
+    {
+      "name": "Cascading Style Sheets (CSS)",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "HTML",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "ASP.NET MVC",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": ".NET Framework",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "JavaScript",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "React.js",
+      "endorsement_count": 1,
+      "related_experiences": []
+    },
+    {
+      "name": "C#",
+      "endorsement_count": 0,
+      "related_experiences": []
+    },
+    {
+      "name": "Microsoft SQL Server",
+      "endorsement_count": 0,
+      "related_experiences": []
+    }
+  ],
+  "recommendations": []
+}]

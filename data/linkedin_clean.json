@@ -1,0 +1,439 @@
+{
+  "source_type": "linkedin",
+  "identity": {
+    "name": "Kavya Hosamane Jayanna",
+    "headline": "Full Stack AI Engineer | RAG · LLM · .NET · React · AWS | MS CS @ Binghamton ’26",
+    "about": "Graduated with a Master's degree in Computer Science from Binghamton University and a Bachelor's degree in Electronics and Communication from MVJ College of Engineering, this professional is AWS Certified Cloud Practitioner with expertise in Amazon EC2, AWS Identity and Access Management (IAM), and Git.  \n\nAt Happiest Minds Technologies, contributed as a Senior Software Engineer, focusing on developing innovative solutions and leveraging cloud technologies. Dedicated to creating scalable systems while ensuring effective collaboration within teams to address complex challenges.",
+    "location": "Greater Binghamton",
+    "current_company": "Neuro20 Technologies",
+    "open_to_work": false,
+    "profile_url": "https://linkedin.com/in/kavya-h-j"
+  },
+  "experience": [
+    {
+      "title": "Product Design & Data Analytics Intern",
+      "company": "Neuro20 Technologies",
+      "employment_type": null,
+      "location": null,
+      "start": "Aug 2026",
+      "end": "Present",
+      "duration_text": "Aug 2026 - Present · 2 mos",
+      "description": "",
+      "skills": [
+        "Machine Learning",
+        "Data Engineering"
+      ]
+    },
+    {
+      "title": "Research Assistant - Generative AI & Multimodal Research",
+      "company": "Binghamton University School of Management",
+      "employment_type": "Part-time",
+      "location": "Binghamton, NY",
+      "start": "May 2026",
+      "end": "Present",
+      "duration_text": "May 2026 - Present · 5 mos",
+      "description": "Building a Retrieval-Augmented Generation (RAG) chatbot enhanced with a knowledge graph, evaluating retrieval and response strategies across 4 experimental conditions using ChromaDB as the vector store for chunk retrieval",
+      "skills": []
+    },
+    {
+      "title": "Research Assistant",
+      "company": "Binghamton University School of Management",
+      "employment_type": "Part-time",
+      "location": null,
+      "start": "Jan 2026",
+      "end": "May 2026",
+      "duration_text": "Jan 2026 - May 2026 · 5 mos",
+      "description": "Built an experimental chatbot system for educational research, developing a chat UI frontend integrated with a GPT API backend, implementing A/B testing for system prompt variations, conversation logging to a database, and Qualtrics survey integration for data collection Reproduced an attention-based deep learning model for multimodal neuroimaging fusion, aligning structural MRI (ICA-derived gray matter components) with dynamic functional connectivity states from resting-state fMRI to study brain structure-function relationships in schizophrenia",
+      "skills": []
+    },
+    {
+      "title": "Senior Software Engineer",
+      "company": "Happiest Minds Technologies",
+      "employment_type": "Full-time",
+      "location": null,
+      "start": "Aug 2024",
+      "end": "Dec 2024",
+      "duration_text": "Aug 2024 - Dec 2024 · 5 mos",
+      "description": "",
+      "skills": []
+    },
+    {
+      "title": "Software Engineer",
+      "company": "Happiest Minds Technologies",
+      "employment_type": "Full-time",
+      "location": "Karnataka, India",
+      "start": "Aug 2022",
+      "end": "Aug 2024",
+      "duration_text": "Aug 2022 - Aug 2024 · 2 yrs 1 mo",
+      "description": "",
+      "skills": []
+    }
+  ],
+  "education": [
+    {
+      "school": "Thomas J. Watson College of Engineering and Applied Science, Binghamton University",
+      "degree": "Master's degree",
+      "field_of_study": "Computer Science",
+      "start": "Jan 2025",
+      "end": null,
+      "grade": "3.9",
+      "description": ""
+    },
+    {
+      "school": "MVJ College of Engineering, Bangalore, India",
+      "degree": "Bachelor of Engineering - BE",
+      "field_of_study": "Electronics and communication",
+      "start": "2018",
+      "end": "2022",
+      "grade": "8.4",
+      "description": ""
+    }
+  ],
+  "certifications": [
+    {
+      "name": "SQL (Intermediate)",
+      "issuer": "HackerRank",
+      "issued_date": "Jul 2026",
+      "skills": [
+        "SQL",
+        "MySQL"
+      ],
+      "credential_url": "https://www.hackerrank.com/certificates/iframe/3ae853d799a6"
+    },
+    {
+      "name": "SQL (Basic)",
+      "issuer": "HackerRank",
+      "issued_date": "Jul 2026",
+      "skills": [],
+      "credential_url": "https://www.hackerrank.com/certificates/d0b671554b7e"
+    },
+    {
+      "name": "Python (Basic) Certificate",
+      "issuer": "HackerRank",
+      "issued_date": "Jul 2026",
+      "skills": [
+        "Python (Programming Language)"
+      ],
+      "credential_url": null
+    },
+    {
+      "name": "Google AI Essentials",
+      "issuer": "Google",
+      "issued_date": "Jun 2026",
+      "skills": [
+        "AI Evaluation",
+        "Prompt Engineering"
+      ],
+      "credential_url": "https://www.coursera.org/account/accomplishments/specialization/TPDKA1FYUF4F"
+    },
+    {
+      "name": "AI Engineer Core Track: LLM Engineering, RAG, QLoRA, Agents",
+      "issuer": "Udemy",
+      "issued_date": "Jun 2026",
+      "skills": [
+        "Large Language Models (LLM)",
+        "Retrieval-Augmented Generation (RAG)"
+      ],
+      "credential_url": null
+    },
+    {
+      "name": "Certificate of Completion: Al Fluency Framework",
+      "issuer": "Anthropic",
+      "issued_date": "May 2026",
+      "skills": [
+        "AI Fluency"
+      ],
+      "credential_url": "https://verify.skilljar.com/c/s9e978qct2a6"
+    },
+    {
+      "name": "Certificate of completion: Introduction to Claude Cowork",
+      "issuer": "Anthropic",
+      "issued_date": "May 2026",
+      "skills": [
+        "Claude Cowork"
+      ],
+      "credential_url": "https://verify.skilljar.com/c/mh8um9mqdkmk"
+    },
+    {
+      "name": "Certificate of completion: Claude code 101",
+      "issuer": "Anthropic",
+      "issued_date": "May 2026",
+      "skills": [],
+      "credential_url": "https://verify.skilljar.com/c/ra333bbjagrd"
+    },
+    {
+      "name": "Certificate of completion: Claude 101",
+      "issuer": "Anthropic",
+      "issued_date": "Mar 2026",
+      "skills": [],
+      "credential_url": "https://verify.skilljar.com/c/wy4uyhicm6bf"
+    },
+    {
+      "name": "AWS Certified Cloud Practitioner",
+      "issuer": "Amazon Web Services (AWS)",
+      "issued_date": "Sep 2025",
+      "skills": [],
+      "credential_url": "https://www.credly.com/badges/6c2eb559-60ac-4e7f-bcb2-7e1c64e6e3b0/linked_in_profile"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Motivation - Daily quotes",
+      "endorsement_count": 0
+    },
+    {
+      "name": "AI Analytics",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Data Engineering",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Dashboard Metrics",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Machine Learning",
+      "endorsement_count": 0
+    },
+    {
+      "name": "MySQL",
+      "endorsement_count": 0
+    },
+    {
+      "name": "SQL",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Query Optimization",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Vector Embeddings",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Gradio",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Text-to-Speech",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Convolutional Neural Networks (CNN)",
+      "endorsement_count": 0
+    },
+    {
+      "name": "NumPy",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Scikit-Learn",
+      "endorsement_count": 0
+    },
+    {
+      "name": "TensorFlow",
+      "endorsement_count": 0
+    },
+    {
+      "name": "PyTorch",
+      "endorsement_count": 0
+    },
+    {
+      "name": "LangChain",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Hugging Face Products",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Bootstrap (Framework)",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Node.js",
+      "endorsement_count": 0
+    },
+    {
+      "name": "FastAPI",
+      "endorsement_count": 0
+    },
+    {
+      "name": "C++",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Python (Programming Language)",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Prompt Engineering",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Artificial Intelligence (AI)",
+      "endorsement_count": 0
+    },
+    {
+      "name": "AI Evaluation",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Retrieval-Augmented Generation (RAG)",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Agents",
+      "endorsement_count": 0
+    },
+    {
+      "name": "QLoRA",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Large Language Models (LLM)",
+      "endorsement_count": 0
+    },
+    {
+      "name": "AI Fluency",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Claude Cowork",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Next.js",
+      "endorsement_count": 1
+    },
+    {
+      "name": "TypeScript",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Redis",
+      "endorsement_count": 0
+    },
+    {
+      "name": "PostgreSQL",
+      "endorsement_count": 0
+    },
+    {
+      "name": "REST APIs",
+      "endorsement_count": 0
+    },
+    {
+      "name": "OpenAI API",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Full-Stack Development",
+      "endorsement_count": 1
+    },
+    {
+      "name": "Amazon EC2",
+      "endorsement_count": 0
+    },
+    {
+      "name": "AWS Identity and Access Management (AWS IAM)",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Git",
+      "endorsement_count": 1
+    },
+    {
+      "name": "Redux.js",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Scrum",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Postman API",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Elasticsearch",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Kanban",
+      "endorsement_count": 0
+    },
+    {
+      "name": ".NET Core",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Microservices",
+      "endorsement_count": 0
+    },
+    {
+      "name": "API Development",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Front-End Development",
+      "endorsement_count": 1
+    },
+    {
+      "name": "Web Development",
+      "endorsement_count": 1
+    },
+    {
+      "name": "Cascading Style Sheets (CSS)",
+      "endorsement_count": 0
+    },
+    {
+      "name": "HTML",
+      "endorsement_count": 0
+    },
+    {
+      "name": "ASP.NET MVC",
+      "endorsement_count": 0
+    },
+    {
+      "name": ".NET Framework",
+      "endorsement_count": 0
+    },
+    {
+      "name": "JavaScript",
+      "endorsement_count": 0
+    },
+    {
+      "name": "React.js",
+      "endorsement_count": 1
+    },
+    {
+      "name": "C#",
+      "endorsement_count": 0
+    },
+    {
+      "name": "Microsoft SQL Server",
+      "endorsement_count": 0
+    }
+  ],
+  "featured_links": [
+    {
+      "title": "kavyahj04",
+      "description": "GitHub",
+      "url": "https://www.linkedin.com/in/kavya-h-j/overlay/1780082490108/single-media-viewer?type=LINK&profileId=ACoAACQ54fMBbRvIJMfAbBc_GGpxwmDmby5JXsI"
+    },
+    {
+      "title": "Kavya_hj - LeetCode Profile",
+      "description": "LeetCode",
+      "url": "https://leetcode.com/u/Kavya_hj/"
+    },
+    {
+      "title": "Portfolio",
+      "description": "my-porttfolio-lemon.vercel.app",
+      "url": "https://my-porttfolio-lemon.vercel.app/"
+    }
+  ],
+  "recommendations": []
+}

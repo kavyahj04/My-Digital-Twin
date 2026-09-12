@@ -1,0 +1,391 @@
+{
+  "source_type": "github",
+  "repos": [
+    {
+      "repo_name": "Agentic-AI-dev",
+      "description": null,
+      "readme_text": "",
+      "languages": {
+        "Jupyter Notebook": 99.9,
+        "Python": 0.1
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/Agentic-AI-dev"
+    },
+    {
+      "repo_name": "AI-Bot-Agent",
+      "description": "AI-powered voice agent that automatically tests clinic receptionist bots via phone calls and transcript analysis.",
+      "readme_text": "Project overview\nThis project is an automated voice testing system. It places phone calls to a clinic receptionist agent, simulates a patient conversation, saves transcripts, and generates a bug report from the transcripts.\n\nPurpose\nThe goal of this project is to automatically test a voice receptionist AI instead of manually calling it. The system simulates real patient conversations, collects transcripts, and identifies failures such as repeated questions, incorrect understanding, or conversation loops.\n\nTechnologies used\nTwilio for telephony and speech processing\nOpenAI for transcript analysis and bug detection\nFastAPI for webhook server\nRailway for cloud hosting and deployment\n\nConversation logic\nThe patient responses are not random. Each call loads a predefined scenario. The system tracks what information was already given such as name and date of birth, so it does not repeat answers. If the agent asks something unexpected, the fallback logic generates a reasonable response.\n\nHow the system works\nStep 1 A call is started using Twilio from a script in this repo\nStep 2 Twilio connects the call and requests instructions from the server endpoint /voice\nStep 3 The server returns TwiML instructions that tell Twilio what to say and when to listen\nStep 4 Twilio listens to the receptionist and converts speech to text\nStep 5 Twilio sends the recognized text to the server endpoint /step\nStep 6 The server chooses the next patient response and sends back new TwiML\nStep 7 This loop continues until the call ends, then the transcript is saved\n\nFiles in this repository\napp.py\nThis is the main FastAPI server. Twilio calls these endpoints during a live phone call.\nPurpose of app.py\n1 It starts the conversation when Twilio hits the /voice endpoint\n2 It continues the conversation loop in the /step endpoint by reading SpeechResult from Twilio and choosing the next patient response\n3 It stores call state per CallSid in memory so each call has its own turns, turn count, slots, and scenario\n4 It ends the call after a maximum number of turns and saves the transcript\n\nscenarios.json\nThis file contains patient scenarios. A scenario includes the patient goal and details such as name and date of birth. The response logic uses this scenario to decide what the patient should say.\n\ntest_10calls.py\nThis script runs 10 calls automatically. It starts one call at a time and waits between calls. It is used to generate the required set of transcripts.\n\ntwilio_test_call.py\nThis script starts a single call. It is used to quickly test the Twilio setup and confirm that Twilio can reach the deployed server.'\n\ntwilio_test.py\nThis script is a basic Twilio credential check. It confirms that Twilio credentials are correct and the Twilio client can access the account.\n\ncollect_transcripts.py\nThis script collects transcripts and helps organize them for review or submission.\n\ntranscripts.json\nThis file stores saved transcripts for calls. Each transcript includes the call id and the ordered list of turns with speaker and text.\n\nbug_analyzer.py\nThis script reads transcripts and calls OpenAI to produce a bug analysis summary. It helps identify patterns like misunderstandings, loops, or missing information.\n\nBUG_REPORT.md\nThis file contains the bug report generated from the transcript analysis.\n\nrequirements.txt\nThis file lists the Python dependencies required to run the project.\n\nEnvironment variables\nCreate a file named .env and set the following values\nTWILIO_ACCOUNT_SID\nTWILIO_AUTH_TOKEN\nTWILIO_FROM_NUMBER\nTARGET_NUMBER\nPUBLIC_BASE_URL\nOPENAI_API_KEY\nNotes about PUBLIC_BASE_URL\nPUBLIC_BASE_URL is the public URL where Twilio can reach the server.\nWhen deployed on Railway, this should be the Railway service URL.\nDuring local development, this can be an ngrok URL.\n\nHow to run locally\n1 Install dependencies\npip install -r requirements.txt\n2 Start the FastAPI server\nuvicorn app:app --host 0.0.0.0 --port 5000\n3 Set PUBLIC_BASE_URL to your public URL and then run a test call\npython twilio_test_call.py\n4 Run 10 calls to generate transcripts\npython test_10calls.py\n5 Generate bug report using OpenAI\npython bug_analyzer.py\nDeployment on Railway\n1 Deploy the FastAPI server app.py on Railway\n2 Set all environment variables in Railway\n3 Set PUBLIC_BASE_URL to the Railway deployed URL\n4 Run the call scripts from your machine using the same environment variables\n\nExpected outputs\n10 call transcripts saved in transcripts.json\nBug report saved in BUG_REPORT.md",
+      "languages": {
+        "Python": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/AI-Bot-Agent"
+    },
+    {
+      "repo_name": "AI-Code-Generator",
+      "description": "AI converts Python code to optimized C++, boosting performance by 60,000x!",
+      "readme_text": "# AI Code Generator\n\nA Gradio-based app that ports **Python code into high-performance Rust or C++**, compiles it, and runs it — using your choice of LLM. Paste in Python, pick a model, and get back optimized native code plus its output side by side.\n\n## Features\n\n- **Python → Rust / C++ porting** driven by an LLM, with prompts tuned for the fastest possible runtime performance on your machine.\n- **Multiple model backends** through a single OpenAI-compatible interface:\n  - OpenAI (`gpt-5`)\n  - Anthropic (`claude-sonnet-4-5`)\n  - xAI Grok (`grok-4`)\n  - Local models via Ollama (`qwen2.5-coder`, `gpt-oss:20b`, …)\n  - OpenRouter (`qwen3-coder`, `gpt-oss-120b`, …)\n- **Compile + run in-app** — generated code is written to `main.rs` / `main.cpp`, compiled with aggressive optimization flags (`-O3`, LTO, `target-cpu=native`), and executed, with output shown in the UI.\n- **System-aware prompts** — the app inspects your OS, CPU, and toolchain (`system_info.py`) so the generated code targets your actual hardware.\n- **Custom styled Gradio UI** — see `styles.py`.\n\n## Project structure\n\n| File | Purpose |\n|------|---------|\n| `code-gen.ipynb` | Main app — the Gradio UI and porting/compile/run logic |\n| `dev.ipynb` | Development / scratch notebook |\n| `styles.py` | Custom CSS for the Gradio interface |\n| `system_info.py` | Detects OS, CPU, and Rust/C++ toolchain info |\n| `main.py` | Simple entry point stub |\n| `main.rs` / `main.cpp` | Generated output files (overwritten on each run) |\n| `pyproject.toml` / `uv.lock` | Dependencies (managed with [uv](https://github.com/astral-sh/uv)) |\n\n## Setup\n\nRequires **Python 3.13** and [uv](https://github.com/astral-sh/uv).\n\n```bash\n# Install dependencies\nuv sync\n```\n\nCreate a `.env` file with the API keys for whichever backends you want to use:\n\n```env\nOPENAI_API_KEY=sk-...\nANTHROPIC_API_KEY=sk-ant-...   # optional\nGROK_API_KEY=xai-...           # optional\nOPENROUTER_API_KEY=sk-or-...   # optional\n```\n\nFor local models, install and run [Ollama](https://ollama.com/) (defaults to `http://localhost:11434`).\n\nTo compile the generated code you also need the relevant toolchains:\n\n- **Rust:** `rustc` (install via [rustup](https://rustup.rs/))\n- **C++:** `clang++` (Xcode Command Line Tools on macOS)\n\n## Running\n\nOpen `code-gen.ipynb` in Jupyter / VS Code and run the cells — the final cell launches the Gradio app in your browser.\n\n## How it works\n\n1. `system_info.py` gathers your machine and toolchain details.\n2. A system prompt asks the model to port the given Python into the fastest equivalent Rust/C++ that produces identical output.\n3. The response is written to `main.rs` / `main.cpp`.\n4. The file is compiled with performance-focused flags and executed via `subprocess`.\n5. The generated code and its output are displayed in the Gradio UI.",
+      "languages": {
+        "Jupyter Notebook": 65.8,
+        "Python": 29.1,
+        "R": 2.6,
+        "Rust": 2.5
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/AI-Code-Generator"
+    },
+    {
+      "repo_name": "AI-Engineering-dev",
+      "description": "Practicing AI Engineering skills",
+      "readme_text": "",
+      "languages": {
+        "Jupyter Notebook": 100.0,
+        "Python": 0.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/AI-Engineering-dev"
+    },
+    {
+      "repo_name": "AI-Foundations",
+      "description": "Building AI foundations from scratch",
+      "readme_text": "",
+      "languages": {
+        "Jupyter Notebook": 70.5,
+        "Python": 29.5
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/AI-Foundations"
+    },
+    {
+      "repo_name": "AI-Meeting-Minutes-Generator",
+      "description": "Takes an audio file of a meeting -> Transcribes it -> Generates Structured Meeting Minutes",
+      "readme_text": "# AI Meeting Minutes Generator\n\nAutomatically transcribes an audio recording of a meeting and generates structured meeting minutes using multiple open source LLMs from HuggingFace.\n\nBuilt as part of the LLM Engineering course (Week 3) — this project demonstrates the full pipeline from raw audio to formatted meeting minutes using only open source models running on a free Google Colab T4 GPU.\n\n---\n\n## What It Does\n\nTakes an `.mp3` audio file of a meeting and runs it through a two-stage pipeline:\n\n**Stage 1 — Transcription**\nUses OpenAI's Whisper model to convert speech to text.\n\n**Stage 2 — Minutes Generation**\nPasses the transcription through multiple LLMs and compares their outputs. Each model produces structured meeting minutes including a summary, discussion points, decisions made, and action items.\n\n---\n\n## Models Used\n\n| Model | Provider | Parameters | Quantization |\n|---|---|---|---|\n| Whisper Medium | OpenAI (via HF) | — | fp16 |\n| Gemma 3 270m | Google | 270M | None |\n| Llama 3.2 1B Instruct | Meta | 1B | 4-bit NF4 |\n| Phi-4 Mini Instruct | Microsoft | 3.8B | 4-bit NF4 |\n\nAll models run locally on a free Colab T4 GPU (15GB VRAM) using 4-bit quantization where needed.\n\n---\n\n## Pipeline Architecture\n\n```\nAudio File (.mp3)\n      │\n      ▼ Whisper Medium (Speech Recognition)\nRaw Transcription Text\n      │\n      ▼ System prompt + User prompt constructed\nMessages (OpenAI-style dict)\n      │\n      ▼ apply_chat_template() — model-specific formatting\n      ▼ tokenizer.encode() — text to token IDs\n      ▼ model.generate() — autoregressive token prediction\n      ▼ tokenizer.decode() — token IDs back to text\n      │\n      ▼ Per-model Meeting Minutes (Markdown)\n```\n\n---\n\n## Setup\n\n### Requirements\n\n- Google Colab with T4 GPU (free tier works)\n- HuggingFace account with API token\n- Audio file uploaded to Google Drive\n\n### HuggingFace Access\n\nSome models require accepting terms before downloading:\n\n- Llama 3.2: https://huggingface.co/meta-llama/Llama-3.2-1B-Instruct\n- Gemma 3: https://huggingface.co/google/gemma-3-270m-it\n\n### Colab Secrets\n\nAdd your HuggingFace token to Colab Secrets (key icon in left sidebar):\n\n```\nHF_TOKEN = hf_your_token_here\n```\n\n### Audio File\n\nPlace your audio file on Google Drive at:\n\n```\nMyDrive/llms/denver_extract.mp3\n```\n\nA sample Denver City Council meeting extract is available here:\nhttps://drive.google.com/file/d/1N_kpSojRR5RYzupz6nqM8hMSoEF_R7pU/view\n\n---\n\n## How to Run\n\n1. Open the notebook in Google Colab\n2. Connect to a T4 GPU runtime\n3. Add `HF_TOKEN` to Colab Secrets\n4. Place audio file on Google Drive\n5. Run all cells top to bottom\n\n---\n\n## Key Concepts Demonstrated\n\n**Tokenization**\nText is converted to token IDs before being passed to any model. Each model has its own vocabulary — tokenizers cannot be mixed across models.\n\n**Chat Templates**\nEach model expects its system/user/assistant messages in a specific format. `apply_chat_template()` handles the conversion automatically from standard Python dicts.\n\n**4-bit Quantization**\nLarge models are compressed from 16-bit (2 bytes per weight) to 4-bit (0.5 bytes per weight) using NF4 format via `BitsAndBytesConfig`. This reduces a 7GB model to under 2GB with minimal quality loss, making it fit on a free T4 GPU.\n\n**Autoregressive Generation**\n`model.generate()` predicts one token at a time, appending each to the sequence and feeding it back in — repeating until `max_new_tokens` is reached or the model generates an end-of-sequence token.\n\n**Memory Management**\nGPU VRAM must be freed manually between models using `del`, `gc.collect()`, and `torch.cuda.empty_cache()`. Without this, loading the next model fails with an out-of-memory error.\n\n---\n\n## Project Structure\n\n```\n├── meeting_minutes.ipynb   # main notebook\n└── README.md\n```\n\n---\n\n## Sample Output\n\nThe notebook generates meeting minutes in this format for each model:\n\n```markdown\n## Meeting Minutes\n### Summary\nDate: October 9, 2017\nLocation: Denver City Council Chambers\n...\n\n### Discussion Points\n- Indigenous Peoples Day proclamation reading\n- Confluence Week events overview\n...\n\n### Action Items\n- Clerk to transmit proclamation to Denver American Indian Commission\n...\n```\n\n---\n\n## Notes\n\n- First run downloads model weights — Whisper (~1.5GB), Llama (~600MB quantized), Phi (~2GB quantized)\n- Weights are cached after first download so subsequent runs are faster\n- If you get a CUDA error mid-run, disconnect and delete the runtime, reconnect, and rerun all cells from the top\n- Gemma requires `trust_remote_code=True` and `torch.bfloat16` — do not change these",
+      "languages": {
+        "Jupyter Notebook": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/AI-Meeting-Minutes-Generator"
+    },
+    {
+      "repo_name": "AI-Powered-Brochure-Generator",
+      "description": "AI-powered brochure generator that scrapes and navigates company websites intelligently",
+      "readme_text": "# brochure-generator\n\nAn AI-powered tool that automatically generates a professional company brochure by scraping a website and using OpenAI's GPT model to summarize relevant content for prospective clients, investors, and recruits.\n\n## What it does\n\n1. Takes a company name and website URL as input\n2. Scrapes the website and extracts all links\n3. Uses GPT to identify relevant pages (About, Careers, Company pages)\n4. Fetches content from those relevant pages\n5. Generates a polished markdown brochure using GPT\n6. Streams the output word by word in real time via a Gradio UI\n\n## Tech Stack\n\n- Python\n- OpenAI API (gpt-5-nano)\n- Gradio\n- Jupyter Notebook\n- requests + BeautifulSoup for web scraping\n- python-dotenv for API key management\n\n## Project Structure\nbrochure-generator/\n├── brochure.ipynb    # Main notebook\n├── .env              # API keys (not committed)\n└── README.md\n\n## Setup\n\n1. Clone the repository\n```bash\ngit clone <your-repo-url>\ncd brochure-generator\n```\n\n2. Install dependencies\n```bash\nuv add openai gradio python-dotenv requests beautifulsoup4\n```\n\n3. Add your OpenAI API key to a `.env` file\nOPENAI_API_KEY=sk-proj-your-key-here\n\n4. Run the notebook in Jupyter or Cursor\n\n## Usage\n\n```python\n# Streaming brochure in notebook\nstream_brochure(\"Anthropic\", \"https://www.anthropic.com/\")\n\n# Or use the Gradio UI — enter company name and URL, get brochure streamed in markdown\n```\n\n## Key Concepts\n\n- **Link filtering** — GPT filters out irrelevant links (Terms of Service, Privacy, emails) and keeps only brochure-relevant pages\n- **Structured JSON output** — `response_format={\"type\": \"json_object\"}` forces GPT to return valid JSON for link selection\n- **Streaming** — uses `stream=True` with `yield` to render output progressively\n- **Gradio UI** — `gr.Interface` with a Markdown output component renders the brochure with full formatting",
+      "languages": {
+        "Jupyter Notebook": 98.5,
+        "Python": 1.5
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/AI-Powered-Brochure-Generator"
+    },
+    {
+      "repo_name": "ai-restaurant-ordering",
+      "description": "Chat-based restaurant ordering with AI-generated dish images and audio descriptions.",
+      "readme_text": "# 🍽️ AI Restaurant — Smart Online Ordering Assistant\n\nAn AI-powered restaurant ordering system where users can browse the menu, place orders through a conversational chat interface, and get AI-generated dish images and audio descriptions for an immersive dining experience.\n\n---\n\n## ✨ Features\n\n- 💬 **Conversational Ordering** — Chat naturally to browse the menu and place orders\n- 🔧 **Tool Calling** — AI queries a real SQLite database for dish info and prices\n- 🖼️ **AI-Generated Images** — Confirms your order with a beautiful AI-generated image of your meal\n- 🔊 **Audio Responses** — Every AI reply is spoken aloud using text-to-speech\n- 🧾 **Live Order Tracker** — Tracks your current order in real time, updates on add/remove\n- ✅ **Confirm Button** — Lock in your order with one click, no going back!\n- 🌐 **Shareable Link** — Accessible from any device via Gradio's public share link\n\n---\n\n## 🛠️ Tech Stack\n\n| Layer | Technology |\n|---|---|\n| AI Model | OpenAI `gpt-4.1-mini` |\n| Image Generation | OpenAI `gpt-image-1` |\n| Text to Speech | OpenAI `gpt-4o-mini-tts` |\n| Database | SQLite (`Menu.db`) |\n| UI | Gradio Blocks |\n| Language | Python 3.12 |\n\n---\n\n## 📁 Project Structure\n\n```\nai-restaurant/\n│\n├── model.ipynb       # Main notebook with all logic\n├── Menu.db           # SQLite database with menu items\n├── .env              # Your OpenAI API key\n└── README.md\n```\n\n---\n\n## 🚀 Getting Started\n\n### 1. Clone the repo\n```bash\ngit clone https://github.com/your-username/ai-restaurant.git\ncd ai-restaurant\n```\n\n### 2. Install dependencies\n```bash\npip install openai gradio python-dotenv pillow\n```\n\n### 3. Set up your API key\nCreate a `.env` file:\n```\nOPENAI_API_KEY=sk-your-key-here\n```\n\n### 4. Run the notebook\nOpen `model.ipynb` in Jupyter and run all cells top to bottom.\n\n---\n\n## 🗃️ Database Schema\n\n```sql\nCREATE TABLE menu (\n    name        TEXT PRIMARY KEY,\n    category    TEXT,\n    description TEXT,\n    price       REAL\n)\n```\n\n**Categories:** Starters, Salads, Soups, Sandwiches, Burgers, Drinks\n\n---\n\n## 🤖 How It Works\n\n```\nUser types message\n        ↓\nAI decides if it needs to call a tool\n        ↓\nTool 1: get_item_from_category → fetches dish names from DB\nTool 2: get_details            → fetches description + price from DB\n        ↓\nAI responds with real data + speaks it aloud\n        ↓\nLive order tracker updates sidebar\n        ↓\nUser clicks Confirm → AI generates image of full order\n```\n\n---\n\n## 🔒 Access\n\nThe app is password protected by default:\n\nChange in the `ui.launch()` call inside the notebook.\n\n---\n\n## 📌 Notes\n\n- Image generation costs ~$0.02–0.08 per image, use the Confirm button wisely!\n- The share link from `share=True` lasts up to 1 week\n- For permanent hosting, deploy to [Hugging Face Spaces](https://huggingface.co/spaces)",
+      "languages": {
+        "Jupyter Notebook": 99.6,
+        "Python": 0.4
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/ai-restaurant-ordering"
+    },
+    {
+      "repo_name": "Algorithms",
+      "description": "Personal LeetCode problem solutions in Python — arrays, trees, dynamic programming, and more.",
+      "readme_text": "# LeetCode Solutions\n\nMy personal collection of LeetCode problem solutions written in Python.\n\n## Problems Solved: 14\n\n| # | Problem | Difficulty |\n|---|---------|------------|\n| 1 | Contains Duplicate | Easy |\n| 2 | Valid Anagram | Easy |\n| 3 | Find Numbers in Disappeared Array | Easy |\n| 4 | Two Sum | Easy |\n| 5 | Group Anagrams | Medium |\n| 6 | Ransom Note | Easy |\n| 7 | Top K Frequent Elements | Medium |\n| 8 | Product Except Itself | Medium |\n| 9 | Valid Sudoku | Medium |\n| 10 | String Encode Decode | Medium |\n| 11 | Longest Common Sequence | Medium |\n| 12 | Contains Duplicate 1 | Easy |\n| 13 | Subarray Sum K | Medium |\n| 14 | Valid Palindrome | Easy |\n\n## Language\n- Python\n\n## How I Approach Problems\n1. Understand the problem\n2. Think through edge cases\n3. Write brute force first\n4. Optimize for time/space complexity\n5. Test with examples\n\n## Topics Covered\n- Arrays & Strings\n- Sliding Window\n- Two Pointers\n- Dynamic Programming\n- Hash Maps",
+      "languages": {
+        "Python": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/Algorithms"
+    },
+    {
+      "repo_name": "ChatBot-demo-Frontend",
+      "description": "Research chat interface built with React for academic studies via Prolific and Qualtrics.",
+      "readme_text": "# ChatBot Demo Frontend\n\nA research-grade chat interface built with React, designed for academic studies via Prolific. Participants interact with an AI chatbot before being redirected to a post-study Qualtrics survey.\n\n## Features\n\n- Real-time chat with AI backend\n- Automatic session initialization on load\n- Paste prevention (typing only — by design for research integrity)\n- Prolific + Qualtrics integration via URL parameters\n- Clean dark UI with IBM Plex font\n\n## Tech Stack\n\n- React 18\n- CSS Variables for theming\n- Deployed on Vercel\n\n## Getting Started\n\n### Prerequisites\n- Node.js 18+\n- npm\n\n### Installation\n```bash\ngit clone https://github.com/kavyahj04/ChatBot-demo-Frontend\ncd ChatBot-demo-Frontend\nnpm install\nnpm start\n```\n\n## URL Parameters\n\nThe app reads these from the URL automatically:\n\n| Parameter | Description |\n|---|---|\n| `PROLIFIC_PID` | Participant ID from Prolific |\n| `SESSION_ID` | Session ID from Prolific |\n| `STUDY_ID` | Study identifier |\n| `qr_pre` | Pre-study QR code value |\n\n## How It Works\n\n1. App loads → automatically starts a chat session with the backend\n2. Participant types messages (paste is disabled for research integrity)\n3. After conversation → clicks \"Continue to Post-Survey\"\n4. Redirects to Qualtrics with session data in URL\n\n## Backend\n\nThis frontend connects to the ChatBot Demo Backend deployed on Railway.\nEOF",
+      "languages": {
+        "Python": 73.5,
+        "CSS": 14.5,
+        "JavaScript": 7.7,
+        "HTML": 2.4,
+        "TypeScript": 1.9
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/ChatBot-demo-Frontend"
+    },
+    {
+      "repo_name": "CIFAR10-Binary-GaussianNB",
+      "description": "Binary image classifier using Gaussian Naive Bayes from scratch to distinguish CIFAR-10 Bird vs Ship images.",
+      "readme_text": "# CIFAR-10 Binary Classification — Gaussian Naive Bayes\n\nBinary image classifier built from scratch to distinguish between two CIFAR-10 classes (Bird vs Ship) using Gaussian Naive Bayes — no sklearn for the classifier.\n\n## What This Project Does\n\n- Loads CIFAR-10 dataset using PyTorch\n- Selects 2000 images per class (Bird vs Ship)\n- Center-crops each 32×32 image to 10×10 → flattens to 300-D feature vector\n- Trains a Gaussian Naive Bayes classifier manually using NumPy\n- Evaluates accuracy on test set\n\n## Tech Stack\n- Python\n- PyTorch + TorchVision (data loading only)\n- NumPy\n- Matplotlib\n- Google Colab\n\n## Key Concepts Covered\n- Image preprocessing and center cropping\n- Feature extraction from raw pixels\n- Gaussian Naive Bayes (manual implementation)\n- Binary classification (Bird=0, Ship=1)\n- Reproducible experiments with fixed seeds\n\n## How to Run\n\nOpen `CIFAR10_Binary_GaussianNB.ipynb` in Google Colab and run all cells.\nDataset downloads automatically on first run.",
+      "languages": {
+        "Jupyter Notebook": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/CIFAR10-Binary-GaussianNB"
+    },
+    {
+      "repo_name": "Clash-of-Minds-Frontier-Models-Debate",
+      "description": "A multi-model debate system where Claude, GPT, DeepSeek, and Grok argue, clash, and judge — built to explore conversation history management across frontier AI APIs.",
+      "readme_text": "# Clash of Minds: Frontier Models Debate\n\nA multi-model debate system where Claude, GPT, DeepSeek, and Grok argue, clash, and judge — built to explore conversation history management across frontier AI APIs.\n\n---\n\n## What It Does\n\nFour frontier AI models are given distinct personalities and put in a structured debate:\n\n| Model | Role | Personality |\n|---|---|---|\n| Claude (claude-haiku-4-5) | Debater | Warm, patient, genuinely believes debate matters |\n| GPT (gpt-4.1-mini) | Debater | Ruthless, contemptuous, thinks the whole exercise is pointless |\n| DeepSeek (deepseek-chat) | Debater | Appears balanced, but always sides with GPT |\n| Grok (grok-3-mini) | Judge | Cold, impartial, delivers a logic-only final verdict |\n\nThe debate runs for 5 rounds. After every argument has been made, Grok reads the full transcript and delivers a final verdict — no bias, no mercy.\n\n---\n\n## Key Concept\n\nThis project is built around one core idea: **AI APIs have no memory.**\n\nEvery time you call an API, you must send the entire conversation history from scratch. Each message is labeled with a role:\n\n- `system` — the AI's personality/instructions\n- `assistant` — what the AI itself said previously\n- `user` — what the other side said\n\nManaging this history correctly across three debaters is the technical challenge this project solves.\n\n---\n\n## Project Structure\n\n```\nclash-of-minds/\n├── model.ipynb       # Main notebook with all code and debate output\n├── .env              # API keys (not committed)\n└── README.md\n```\n\n---\n\n## Setup\n\n**1. Clone the repo**\n```bash\ngit clone https://github.com/yourusername/clash-of-minds.git\ncd clash-of-minds\n```\n\n**2. Install dependencies**\n```bash\npip install openai python-dotenv\n```\n\n**3. Add your API keys to a `.env` file**\n```\nOPENAI_API_KEY=sk-...\nANTHROPIC_API_KEY=sk-ant-...\nDEEPSEEK_API_KEY=sk-...\nGROK_API_KEY=xai-...\n```\n\n**4. Run the notebook**\n\nOpen `model.ipynb` in Jupyter and run all cells top to bottom.\n\n---\n\n## How It Works\n\nClaude speaks first each round. GPT responds to Claude. DeepSeek responds to both. After 5 rounds, Grok reads the full transcript and judges.\n\nEach model gets a conversation history built from its own perspective — its past messages labeled `assistant`, everyone else's labeled `user`. This is reconstructed from scratch on every API call.\n\n---\n\n## Models Used\n\n| Model | Provider | API Compatibility |\n|---|---|---|\n| claude-haiku-4-5 | Anthropic | OpenAI-compatible via base URL |\n| gpt-4.1-mini | OpenAI | Native |\n| deepseek-chat | DeepSeek | OpenAI-compatible |\n| grok-3-mini | xAI | OpenAI-compatible |\n\n---\n\n## Sample Output\n\n```\nClaude: I believe AI will transform work but humans will always have purpose and value.\nGPT: Anyone who thinks humans won't be replaced is delusional and naive.\nDeepSeek: Claude raises valid concerns, but GPT's position is more logically sound.\n\n...5 rounds later...\n\nGrok's Verdict: GPT made the best case.\n```",
+      "languages": {
+        "Jupyter Notebook": 99.5,
+        "Python": 0.5
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/Clash-of-Minds-Frontier-Models-Debate"
+    },
+    {
+      "repo_name": "DSA",
+      "description": "Practicing Algorithms",
+      "readme_text": "",
+      "languages": {
+        "Python": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/DSA"
+    },
+    {
+      "repo_name": "Ford-Ranger-Price-Trend-Analysis-Prediction-2012-2018",
+      "description": "Linear regression from scratch to predict Ford Ranger prices using gradient descent and feature scaling.",
+      "readme_text": "# Edge of Stability — Ford Ranger Price Trend Analysis\n\nLinear regression model built from scratch to analyze and predict Ford Ranger prices (2012–2018) using gradient descent with and without feature scaling.\n\n## What This Project Does\n\n- Implements linear regression manually using NumPy (no sklearn)\n- Predicts missing Ford Ranger prices for 2012–2018\n- Compares baseline (unscaled) vs feature-scaled gradient descent\n- Uses dynamic learning rate for faster convergence\n- Predicts 2026 Ford Ranger price range: **$27,119 – $42,608**\n\n## Tech Stack\n- Python\n- NumPy\n- Matplotlib\n- Google Colab\n\n## Key Results\n\n| Year | Predicted Min | Predicted Max |\n|------|--------------|---------------|\n| 2012 | $17,427 | $28,882 |\n| 2015 | $19,504 | $31,823 |\n| 2018 | $21,581 | $34,765 |\n| 2026 | $27,119 | $42,608 |\n\n## Concepts Covered\n- Gradient descent (manual implementation)\n- Feature scaling / standardization\n- Dynamic learning rate\n- Loss curve visualization\n- Linear hypothesis function: `f(x) = θ₀ + θ₁x`\n\n## How to Run\n\nOpen `Project_01.ipynb` in Google Colab and run all cells.",
+      "languages": {
+        "Jupyter Notebook": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/Ford-Ranger-Price-Trend-Analysis-Prediction-2012-2018"
+    },
+    {
+      "repo_name": "gpt-from-scratch",
+      "description": "GPT built from scratch in PyTorch — character-level transformer  trained on tiny Shakespeare, following Karpathy's tutorial.",
+      "readme_text": "",
+      "languages": {},
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/gpt-from-scratch"
+    },
+    {
+      "repo_name": "gradio-openai-chat",
+      "description": "A simple Gradio UI for chatting with OpenAI's GPT models with streaming responses.",
+      "readme_text": "# gradio-openai-chat\n\nA simple Gradio UI for chatting with OpenAI's GPT models with streaming responses.\n\n## What it does\n\nA clothes store assistant that helps customers find items on sale. It dynamically adjusts its behavior based on what the customer asks — for example, redirecting belt or shoe queries toward hats which are 60% off.\n\n## Tech Stack\n\n- Python\n- OpenAI API (gpt-4.1-mini)\n- Gradio\n- python-dotenv\n\n## Project Structure\ngradio-openai-chat/\n├── main.ipynb    # Main notebook\n├── .env          # API keys (not committed)\n└── README.md\n\n## Setup\n\n1. Clone the repository\n```bash\ngit clone <your-repo-url>\ncd gradio-openai-chat\n```\n\n2. Install dependencies\n```bash\nuv add openai gradio python-dotenv\n```\n\n3. Add your OpenAI API key to a `.env` file\nOPENAI_API_KEY=sk-proj-your-key-here\n\n4. Run the notebook in Jupyter or Cursor\n\n## Key Concepts\n\n- **Dynamic system prompt** — updates at runtime based on keywords in the user message so the assistant responds contextually\n- **Conversation history** — full chat history is passed on every turn so the model has context\n- **Streaming** — responses stream token by token using `stream=True` and `yield`\n- **gr.ChatInterface** — Gradio's built-in chat UI handles message threading automatically",
+      "languages": {
+        "Jupyter Notebook": 97.8,
+        "Python": 2.2
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/gradio-openai-chat"
+    },
+    {
+      "repo_name": "health-and-study-tracker",
+      "description": "My Personal health and study tracker",
+      "readme_text": "",
+      "languages": {
+        "HTML": 99.0,
+        "JavaScript": 1.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/health-and-study-tracker"
+    },
+    {
+      "repo_name": "Iris-Logistic-Regression",
+      "description": "Binary logistic regression from scratch using NumPy to classify Iris flower species with gradient descent.",
+      "readme_text": "# Iris Binary Logistic Regression\n\nBinary logistic regression implemented from scratch using NumPy to classify two Iris flower species (Setosa vs Virginica) based on sepal features.\n\n## What This Project Does\n\n- Implements logistic regression manually — no sklearn for training\n- Binary classification: Setosa (y=0) vs Virginica (y=1)\n- Features used: sepal length and sepal width\n- Trained with gradient descent over 3000 epochs\n- Tracks cost and accuracy history per epoch\n\n## Tech Stack\n- Python\n- NumPy\n- Pandas\n- Matplotlib\n- Scikit-learn (dataset + train/test split only)\n- Google Colab\n\n## Key Concepts Covered\n- Sigmoid activation function\n- Binary cross-entropy loss\n- Gradient descent parameter updates\n- Feature bias term (intercept)\n- Stratified train/test split (80/20)\n- Decision boundary visualization\n\n## How to Run\n\nOpen `Iris_Binary_Logistic_Regression.ipynb` in Google Colab and run all cells.",
+      "languages": {
+        "Jupyter Notebook": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/Iris-Logistic-Regression"
+    },
+    {
+      "repo_name": "kavyahj04",
+      "description": null,
+      "readme_text": "# Hi, I'm Kavya 👋\n\n### Full-Stack AI Engineer | LLM Integration | MS Computer Science @ Binghamton University\n\nI build intelligent, production-ready systems at the intersection of **AI engineering** and **full-stack development** from LLM-powered backends to responsive, real-time frontends.\n\nCurrently focused on: **RAG pipelines**, **LLM agents**, **AI voice systems**, and **full-stack AI products**.\n\n---\n\n## 🧠 What I Work On\n\n- **LLM Integration** — OpenAI API, prompt engineering, RAG architecture, LLM agents\n- **Full-Stack Development** — React, Next.js, Node.js, FastAPI, .NET Core\n- **AI/ML Engineering** — PyTorch, fine-tuning, embeddings, vector databases\n- **Cloud & DevOps** — AWS (Certified Cloud Practitioner), Docker, PostgreSQL, Redis\n\n---\n\n## 🛠 Tech Stack\n\n**Languages**\n\n**AI / ML**\n\n**Frontend**\n\n**Backend**\n\n**Databases & Cloud**\n\n---\n\n## 🚀 Projects\n\n| Project | Description | Stack |\n|---|---|---|\n| **GenAI Chatbot Platform** | AI chatbot for university research with A/B testing and Qualtrics integration | React, FastAPI, OpenAI |\n| **RAG Document Assistant** | Retrieval-augmented generation system for document Q&A | Python, LangChain, Vector DB |\n| **AI Voice Task Manager** | Voice-driven task management using STT/TTS pipelines | Twilio, OpenAI, FastAPI |\n| **OSS Health Tracker** | Dashboard tracking health metrics of open source repositories | Next.js, PostgreSQL, D3.js |\n\n---\n\n## 📌 About Me\n\n- MS Computer Science @ Binghamton University (GPA 3.9, Dec 2026)\n- AWS Certified Cloud Practitioner\n- Open Source Contributor — [ed-donner/llm_engineering](https://github.com/ed-donner/llm_engineering/pull/3259)\n- Daily DSA practice in Python\n- Interests: LLM systems, AI agents, full-stack architecture, neuroimaging research\n\n---\n\n## 📫 Let's Connect\n\n[](https://www.linkedin.com/in/kavya-h-j/)",
+      "languages": {},
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/kavyahj04"
+    },
+    {
+      "repo_name": "Kavya_Hosamane_Jayanna",
+      "description": "My personal Portfolio",
+      "readme_text": "",
+      "languages": {},
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/Kavya_Hosamane_Jayanna"
+    },
+    {
+      "repo_name": "Life-Expectancy-Data-Analysis-and-Model-Training",
+      "description": null,
+      "readme_text": "# Life Expectancy — Data Analysis and Model Training\n\nExploratory cleaning of the WHO life expectancy dataset and a linear regression model that\npredicts a country's life expectancy from its health, economic, and education indicators.\n\n## Dataset\n\n`Life Expectancy Data.csv` — the WHO / UN \"Life Expectancy (WHO)\" dataset: 2,938 rows ×\n22 columns, covering 193 countries from 2000–2015.\n\nThe CSV is **not checked into this repo**. Download it from\n[Kaggle](https://www.kaggle.com/datasets/kumarajarshi/life-expectancy-who) and place it in the\nproject root before running the notebooks.\n\nColumns include `Country`, `Year`, `Status` (Developed/Developing), `Adult Mortality`,\n`infant deaths`, `Alcohol`, `Hepatitis B`, `Measles`, `BMI`, `Polio`, `Diphtheria`,\n`HIV/AIDS`, `GDP`, `Population`, `thinness 1-19 years`, `Income composition of resources`,\nand `Schooling`. Target: `Life expectancy`.\n\n## Notebooks\n\n| Notebook | Contents |\n| --- | --- |\n| [Life_Expectancy.ipynb](Life_Expectancy.ipynb) | Cleaning and preprocessing only — stops after one-hot encoding. |\n| [Life_Expectancy (1).ipynb](<Life_Expectancy (1).ipynb>) | The full pipeline: same cleaning, plus train/test split, scaling, and model training. Start here. |\n\n## Pipeline\n\n1. **Column names** — stripped of stray whitespace (`\" thinness 5-9 years\"` → `\"thinness 5-9 years\"`).\n2. **Target rows** — the 10 rows missing `Life expectancy` are dropped.\n3. **Missing values** — imputed per country first (`groupby(\"Country\").transform`), since indicators\n   track closely within a country across years. Means for most columns, medians for the skewed ones\n   (`GDP`, `Income composition of resources`). Countries with no observed value at all fall back to\n   the global mean/median.\n   Largest gaps: `Population` (652), `Hepatitis B` (553), `GDP` (448).\n4. **Duplicates** — dropped.\n5. **Encoding** — `Status` one-hot encoded with `drop_first=True`, giving `Status_True`\n   (1 = Developed), cast to `int`.\n6. **Split & scale** — 80/20 `train_test_split` (`random_state=1`), then `StandardScaler`\n   fit on the training set only and applied to both.\n   `Country` is dropped from the features; `Year` is kept.\n\n## Results\n\n| Model | Test R² | Test MSE |\n| --- | --- | --- |\n| `LinearRegression` | 0.815 | 16.39 |\n| `SGDRegressor` (`max_iter=1000`) | 0.804 | — |\n\nTraining R² for the linear model is 0.821 vs. 0.815 on test, so there's no meaningful\noverfitting — the gap is well within noise.\n\n## Running\n\n```bash\npip install pandas scikit-learn jupyter\njupyter notebook \"Life_Expectancy (1).ipynb\"\n```\n\nThen run all cells top to bottom.\n\n## Notes / possible next steps\n\n- Imputing from the full dataset before the train/test split leaks a small amount of test\n  information into training. Fitting the imputation inside a `Pipeline` would be stricter.\n- `infant deaths` and `under-five deaths` are highly correlated, as are the two `thinness`\n  columns — dropping one of each pair, or trying a regularized model (Ridge/Lasso), is a\n  natural follow-up.\n- Tree-based models (RandomForest, gradient boosting) would likely beat 0.815 R², since\n  several relationships here (e.g. `HIV/AIDS`) are clearly non-linear.",
+      "languages": {
+        "Jupyter Notebook": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/Life-Expectancy-Data-Analysis-and-Model-Training"
+    },
+    {
+      "repo_name": "MindMap",
+      "description": null,
+      "readme_text": "",
+      "languages": {},
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/MindMap"
+    },
+    {
+      "repo_name": "My-Digital-Twin",
+      "description": "An open-source AI digital twin that uses GitHub and professional profile data to create a conversational assistant that answers questions about my background, skills, projects, and experience. Built with RAG, an open-source LLM, tool calling, and privacy-focused security guardrails.",
+      "readme_text": "",
+      "languages": {},
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/My-Digital-Twin"
+    },
+    {
+      "repo_name": "My-Personal-Assistant",
+      "description": "Personal dashboard for tracking learning goals, projects, fundamentals, and monthly plans — built with Next.js.",
+      "readme_text": "# 🧠 Personal Assistant\n\nA self-hosted personal productivity dashboard to manage learning goals, projects, and monthly plans — all in one place. Built with Next.js 14 and TypeScript, with no backend required.\n\n## Features\n\n- **Monthly Planner** — Set monthly goals and break them into subtasks with progress tracking\n- **Projects** — Manage projects with weekly phases, step-by-step tasks, and skill tags\n- **Fundamentals** — Track core skills and learning resources with status tracking (Not Started → In Progress → Solid)\n\n## Tech Stack\n\n- [Next.js 14](https://nextjs.org/) (App Router)\n- [TypeScript](https://www.typescriptlang.org/)\n- [Tailwind CSS](https://tailwindcss.com/)\n- `localStorage` for persistence — no backend, no database\n\n## Getting Started\n\n```bash\n# Clone the repo\ngit clone https://github.com/your-username/your-repo-name.git\ncd your-repo-name\n\n# Install dependencies\nnpm install\n\n# Run the development server\nnpm run dev\n```\n\nOpen [http://localhost:3000](http://localhost:3000) in your browser.\n\n## Usage\n\n### Monthly Planner\nAdd goals for any month, break each goal into subtasks, and track completion. Navigate between months using the arrow controls.\n\n### Projects\nCreate projects, tag them with skills and technologies, then break work into weekly phases with individual steps.\n\n### Fundamentals\nTrack the core skills you're building. Add learning resources (courses, docs, videos, books, certs) and certifications to each skill.\n\n## License\n\nMIT",
+      "languages": {
+        "TypeScript": 98.6,
+        "CSS": 0.9,
+        "JavaScript": 0.5
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/My-Personal-Assistant"
+    },
+    {
+      "repo_name": "my-portfolio",
+      "description": "Personal portfolio website built with React and Vite showcasing experience, skills, and projects.",
+      "readme_text": "# Getting Started with Create React App\n\nThis project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).\n\n## Available Scripts\n\nIn the project directory, you can run:\n\n### `npm start`\n\nRuns the app in the development mode.\\\nOpen [http://localhost:3000](http://localhost:3000) to view it in your browser.\n\nThe page will reload when you make changes.\\\nYou may also see any lint errors in the console.\n\n### `npm test`\n\nLaunches the test runner in the interactive watch mode.\\\nSee the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.\n\n### `npm run build`\n\nBuilds the app for production to the `build` folder.\\\nIt correctly bundles React in production mode and optimizes the build for the best performance.\n\nThe build is minified and the filenames include the hashes.\\\nYour app is ready to be deployed!\n\nSee the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.\n\n### `npm run eject`\n\n**Note: this is a one-way operation. Once you `eject`, you can't go back!**\n\nIf you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.\n\nInstead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.\n\nYou don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.\n\n## Learn More\n\nYou can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).\n\nTo learn React, check out the [React documentation](https://reactjs.org/).\n\n### Code Splitting\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)\n\n### Analyzing the Bundle Size\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)\n\n### Making a Progressive Web App\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)\n\n### Advanced Configuration\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)\n\n### Deployment\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)\n\n### `npm run build` fails to minify\n\nThis section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)",
+      "languages": {
+        "JavaScript": 95.1,
+        "HTML": 4.7,
+        "CSS": 0.2
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/my-portfolio"
+    },
+    {
+      "repo_name": "OSS-Health-Dashboard",
+      "description": "Track the health of your GitHub repositories with AI-powered scores, dependency analysis, security scanning, and weekly email digests.",
+      "readme_text": "# OSS Health Tracker\n\nTrack and visualize the health of your GitHub repositories with AI-powered insights.\n\n## What is this?\n\nOSS Health Tracker connects to your GitHub account, analyzes all your repositories across 8 health signals, and gives each one a score from 0 to 100. It runs automatically in the background every 6 hours, sends you a weekly email digest, and generates a badge you can embed in any README.\n\n## Features\n\n- Login with GitHub OAuth, no passwords required\n- Automatic repository sync every 6 hours via background jobs\n- Health score (0 to 100) calculated across 8 signals per repository\n- AI-powered improvement suggestions using GPT-3.5\n- Dependency health check via npm registry\n- Vulnerability scanning via OSV.dev\n- Secret scanning via GitHub's built-in API\n- Commit activity chart across all repositories\n- Weekly email digest with score changes and top suggestions\n- Embeddable SVG health badge for your README\n\n## Tech Stack\n\n| Layer | Tool | Purpose |\n|-------|------|---------|\n| Framework | Next.js + TypeScript | Frontend and API routes in one codebase |\n| Auth | NextAuth + GitHub OAuth | Login with GitHub, session management |\n| Database | Supabase (PostgreSQL) via Prisma | Permanent storage for repos, scores, users |\n| Cache + Queue | Upstash Redis + BullMQ | Background job scheduling and fast reads |\n| AI | OpenAI GPT-3.5 | Generating improvement suggestions |\n| Charts | Recharts | Commit activity visualization |\n| Email | Resend | Weekly digest delivery |\n| Hosting | Vercel | Deployment |\n\n## How the Health Score Works\n\nEach repository is scored across 7 signals. The final score is a weighted sum.\n\n| Signal | Weight | What it measures |\n|--------|--------|-----------------|\n| Commit Recency | 20% | Days since last push |\n| Commit Activity | 20% | Total commits in tracked period |\n| Issue Management | 15% | Ratio of open to closed issues |\n| PR Health | 15% | Average pull request merge time |\n| Documentation | 15% | README, LICENSE, description presence |\n| Repo Structure | 10% | .gitignore, GitHub Actions, CONTRIBUTING |\n| Popularity | 5% | Star count |\n\nDependency health and security are scored separately and displayed in their own panels.\n\n## Project Structure\n```\nsrc/\n├── app/\n│   ├── api/\n│   │   ├── auth/[...nextauth]/   # GitHub OAuth + session + queue scheduling\n│   │   ├── repos/                # Fetch repositories from database\n│   │   ├── sync/                 # Manual sync trigger\n│   │   ├── worker/               # Start BullMQ background workers\n│   │   ├── badge/                # SVG badge generation\n│   │   └── testemail/            # Weekly digest trigger\n│   ├── dashboard/                # Main dashboard page\n│   └── repo/[name]/              # Individual repository detail page\n└── lib/\n    ├── prisma.ts                 # Database client (singleton pattern)\n    ├── github.ts                 # GitHub API functions via Octokit\n    ├── scoring.ts                # Health score calculation engine\n    ├── dependencies.ts           # npm + OSV.dev dependency checks\n    ├── security.ts               # GitHub secret scanning\n    ├── suggestions.ts            # OpenAI integration + fallback logic\n    ├── email.ts                  # Resend weekly digest\n    ├── queue.ts                  # BullMQ queue definitions\n    └── worker.ts                 # BullMQ worker definitions\n```\n\n## Getting Started\n\n### Prerequisites\n\n- Node.js 18+\n- A GitHub OAuth App\n- Supabase project\n- Upstash Redis instance\n- OpenAI API key\n- Resend account\n\n### 1. Clone the repository\n```bash\ngit clone https://github.com/your-username/oss-health-tracker.git\ncd oss-health-tracker\nnpm install\n```\n\n### 2. Set up environment variables\n\nCreate a `.env.local` file in the root:\n```env\n# GitHub OAuth\nGITHUB_CLIENT_ID=your_github_client_id\nGITHUB_CLIENT_SECRET=your_github_client_secret\n\n# NextAuth\nNEXTAUTH_SECRET=your_random_secret_string\nNEXTAUTH_URL=http://localhost:3000\n\n# Database\nDATABASE_URL=your_supabase_postgresql_connection_string\n\n# Upstash Redis\nUPSTASH_URL=your_upstash_redis_url\nUPSTASH_REDIS_REST_TOKEN=your_upstash_token\n\n# OpenAI\nOPENAI_API_KEY=your_openai_api_key\n\n# Resend\nRESEND_API_KEY=your_resend_api_key\n```\n\n### 3. Set up the database\n```bash\nnpx prisma generate\nnpx prisma db push\n```\n\n### 4. Create a GitHub OAuth App\n\nGo to GitHub Settings > Developer Settings > OAuth Apps > New OAuth App\n\nSet the callback URL to:\n```\nhttp://localhost:3000/api/auth/callback/github\n```\n\n### 5. Run the development server\n```bash\nnpm run dev\n```\n\nOpen [http://localhost:3000](http://localhost:3000)\n\n### 6. Start the background workers\n\nOnce the app is running, visit:\n```\nhttp://localhost:3000/api/worker\n```\n\nThis starts the sync and email workers. Repositories will begin syncing automatically.\n\n## How the Badge Works\n\nAfter syncing, embed your repository health badge in any README:\n```markdown\n\n```\n\nThe badge shows your current health score and updates every hour.\n\n## Background Jobs\n\nTwo jobs run automatically after login:\n\n**Sync job** runs every 6 hours. Fetches fresh data from GitHub for all repositories, recalculates health scores, checks dependencies and security, and generates new AI suggestions.\n\n**Email job** runs every Sunday at 9am. Sends a weekly digest showing your top 5 repositories by score, score changes since last week, and the top 3 improvement suggestions.\n\n## Known Limitations\n\n- GitHub API allows 5,000 requests per hour. Users with many repositories may approach this limit during a full sync.\n- Health scores do not account for repository age. A brand new repository will score low on popularity and commit history by design.\n- Secret scanning requires GitHub Advanced Security for private repositories. Public repositories are scanned by default.\n- Workers require a persistent runtime. On Vercel's hobby plan, the worker endpoint must be called manually to start workers after a cold start.\n- The email sender address uses Resend's default domain in development. A verified custom domain is required for production delivery.\n\n## License\n\nMIT",
+      "languages": {
+        "TypeScript": 99.1,
+        "JavaScript": 0.5,
+        "CSS": 0.4
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/OSS-Health-Dashboard"
+    },
+    {
+      "repo_name": "RAG-Chatbot",
+      "description": "Simple RAG Chatbot with gradio ",
+      "readme_text": "# ChatBot Demo Frontend\n\nA research-grade chat interface built with React, designed for academic studies via Prolific. Participants interact with an AI chatbot before being redirected to a post-study Qualtrics survey.\n\n## Features\n\n- Real-time chat with AI backend\n- Automatic session initialization on load\n- Paste prevention (typing only — by design for research integrity)\n- Prolific + Qualtrics integration via URL parameters\n- Clean dark UI with IBM Plex font\n\n## Tech Stack\n\n- React 18\n- CSS Variables for theming\n- Deployed on Vercel\n\n## Getting Started\n\n### Prerequisites\n- Node.js 18+\n- npm\n\n### Installation\n```bash\ngit clone https://github.com/kavyahj04/ChatBot-demo-Frontend\ncd ChatBot-demo-Frontend\nnpm install\nnpm start\n```\n\n## URL Parameters\n\nThe app reads these from the URL automatically:\n\n| Parameter | Description |\n|---|---|\n| `PROLIFIC_PID` | Participant ID from Prolific |\n| `SESSION_ID` | Session ID from Prolific |\n| `STUDY_ID` | Study identifier |\n| `qr_pre` | Pre-study QR code value |\n\n## How It Works\n\n1. App loads → automatically starts a chat session with the backend\n2. Participant types messages (paste is disabled for research integrity)\n3. After conversation → clicks \"Continue to Post-Survey\"\n4. Redirects to Qualtrics with session data in URL\n\n## Backend\n\nThis frontend connects to the ChatBot Demo Backend deployed on Railway.\nEOF",
+      "languages": {
+        "Python": 73.5,
+        "CSS": 14.5,
+        "JavaScript": 7.7,
+        "HTML": 2.4,
+        "TypeScript": 1.9
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/RAG-Chatbot"
+    },
+    {
+      "repo_name": "RAG-Chatbot-Pro",
+      "description": null,
+      "readme_text": "",
+      "languages": {
+        "Python": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/RAG-Chatbot-Pro"
+    },
+    {
+      "repo_name": "RAG-Chatbot-Research-Project",
+      "description": null,
+      "readme_text": "# RAG Summer Project\n\nA RAG + knowledge-graph chatbot over GitLab's security handbook.\n\n- `rag/` — Python backend: chunking/embedding/graph-build scripts, plus a FastAPI app (`api.py`) that serves the existing `answer()` pipeline over HTTP.\n- `frontend/` — React (Vite) chat UI that talks to the backend.\n\n## Data pipeline (how it was built)\n\nThe source corpus is GitLab's security handbook (markdown files under `rag/security_doc/`).\nIt is turned into three aligned artifacts, all joined on a stable `chunk_id`\n(`<relative_path>_<index>`, e.g. `gearing-ratios.md_0`).\n\n**1. Chunking — `rag/pipeline/chunking.py` → `json/chunks.json`**\n- Parses each markdown file by heading (h2–h6) so chunks respect section\n  boundaries, carrying a heading \"breadcrumb\" as metadata.\n- Targets ~500 tokens per chunk (`cl100k_base`), with 50-token overlap; oversized\n  sections are split on paragraph boundaries.\n- Generates a one-sentence retrieval summary per chunk with `gpt-4o-mini`\n  (stored as `section_summary` for query-to-section matching).\n\n**2. Embedding — `rag/pipeline/embed.py` → `json/embeddings.json`**\n- `text-embedding-3-large`, 3072-dim, batched.\n- Skips any chunk over 8,000 tokens (embedding-model input limit).\n\n**3. Schema discovery — `rag/archive/` → `json/consolidated_schema.json`**\n- `sampling_200.py` samples 200 relationship-dense chunks (keyword-guided).\n- `discover_schema_200.py` runs an unconstrained `LLMGraphTransformer` pass to\n  surface the raw entity/relationship vocabulary (`raw_extraction_200.json`).\n- `consolidate_schema.py` merges near-duplicate types into a **frozen schema of\n  26 node types and 39 relationship types**. This schema is then locked and used\n  to constrain all downstream extraction.\n\n**4. Graph extraction — `rag/pipeline/build_graph.py` → `json/graph_documents_full.jsonl`**\n- LangChain `LLMGraphTransformer` with `gpt-4.1-mini`, constrained to the frozen\n  schema plus handbook-specific extraction rules (e.g. extract Roles not people,\n  formula-derived numbers become `DERIVED_FROM` edges).\n- One JSONL record per chunk (`chunk_id`, `nodes`, `relationships`); resumable —\n  reruns skip `chunk_id`s already written.\n\n### Data artifacts (`rag/json/`)\n\n| File | What it is | Records |\n|---|---|---|\n| `chunks.json` | text + heading/url/summary metadata | 4,343 |\n| `embeddings.npz` | `chunk_id` → 3072-dim vector (compact npz; supersedes the old `embeddings.json`) | 4,343 |\n| `consolidated_schema.json` | frozen graph schema | 26 nodes / 39 rels |\n| `graph_documents_full.jsonl` | per-chunk extracted nodes & relationships | 4,343 |\n| `graph_documents_clean.jsonl` | **Neo4j-ready** cleaned graph (see below) | 4,343 |\n\n## Data quality (how it was analyzed & fixed)\n\nBefore loading into Neo4j the three artifacts were audited for consistency by\njoining them on `chunk_id` and checking structural integrity:\n\n- **Cross-file alignment** — confirmed 1:1 `chunk_id` coverage across chunks,\n  embeddings, and graph docs.\n- **Graph structure** — node/relationship counts, empty-extraction rate,\n  orphan nodes, within-doc duplicate ids.\n- **Dangling relationships** — edges whose `source`/`target` was never emitted as\n  a node in the same document.\n- **Schema conformance** — every node/relationship `type` checked against the\n  frozen schema (case-insensitively).\n\n**Issues found and fixed:**\n\n1. **2 chunks had no embeddings** (`corporate/systems/_index.md_1` at 33,616 tok,\n   `corporate/team/_index.md_1` at 9,866 tok). Root cause: the chunker refused to\n   split any section containing raw HTML (`<table>`/`<div>`/`<ul>`), so these\n   exceeded the 8,000-token embed limit and were skipped. **Fix — `rag/archive/test.py`:**\n   strips the HTML to markdown (via `markdownify`) and re-splits only those two\n   chunks into 55 properly-sized sub-chunks, then updates all three artifacts.\n   Corpus went 4,290 → **4,343**, and all three files now align exactly.\n\n2. **Node-type casing** — only ~41% of node types exactly matched the schema's\n   Title Case (`\"Asset or resource\"` vs `\"Asset or Resource\"`); Neo4j labels are\n   case-sensitive, so this would have created duplicate labels.\n\n3. **1,034 dangling relationship endpoints** — would create phantom, typeless\n   nodes on a naive `MERGE` load.\n\n   Fixes 2 & 3 are applied by **`rag/pipeline/clean_graph.py`**, which reads\n   `graph_documents_full.jsonl` (read-only) and writes a new\n   `graph_documents_clean.jsonl`:\n   - normalizes all node types to canonical Title Case (100% schema-conformant);\n   - recovers 169 dangling endpoints whose type is known from elsewhere in the graph;\n   - infers types for the remaining 505 unique endpoints with `gpt-4.1-mini`,\n     constrained to the 26 schema types.\n\n   Result: **0 dangling edges**, 100% canonical typing, all 18,804 relationships\n   preserved, +737 recovered nodes (22,935 → 23,672).\n\n## Backend (`rag/`)\n\n```bash\ncd rag\npython3 -m venv venv          # already done; recreate if you move this folder again\nsource venv/bin/activate\npip install -r requirements.txt\n```\n\nCreate `rag/.env` with:\n\n```\nOPENAI_API_KEY=sk-...\nCORS_ORIGINS=http://localhost:5173   # comma-separated list; set to your deployed frontend URL in prod\nNEO4J_URI=neo4j+s://<instance-id>.databases.neo4j.io\nNEO4J_USERNAME=neo4j\nNEO4J_PASSWORD=...\n```\n\nRun it:\n\n```bash\nuvicorn api:app --reload --port 8000\n```\n\nEndpoints:\n- `GET /health`\n- `POST /api/chat` — body `{\"message\": \"...\"}`, returns `{\"answer\": \"...\", \"sources\": [...]}`\n\n### Retrieval pipeline (`rag/pipeline/query_decomposition.py`)\n\nEach chat message is handled as:\n1. **Intent classification** — `chitchat` gets a direct reply with no lookup; `handbook` continues below.\n2. **Decomposition** — complex questions are split into independent sub-questions (`decompose_query`).\n3. **Retrieval per sub-question** — `retriever.py` does cosine similarity search over `chunks.json` + `embeddings.npz`; `graph_retriever.py` fuzzy-matches entity names against a Neo4j full-text index and pulls each match's 1-hop neighborhood as `(source, relation, target)` facts.\n4. **Answering** — each sub-question is answered from its matching chunk text + graph facts, then the sub-answers are synthesized into one final reply.\n\nThe knowledge graph itself (`graph_documents_clean.jsonl`) is loaded into Neo4j via `rag/pipeline/load_full_graph.py` (nodes batched by type with `MERGE`, then relationships). `rag/pipeline/load-graph.py` is just a connectivity smoke test, not the loader.\n\nA `Dockerfile` (at `docker/Dockerfile`, referenced by `railway.json` for Railway deploys) is included for deploying to any container host. Whatever host you pick, it needs **persistent disk** or the artifacts baked into the image, since `rag/json/*` is read from local files on startup — that's why this isn't deployed as a Vercel serverless function.\n\n> Note: this project was moved from another folder, which broke the old `venv`'s shebang paths (`pip`/`python` pointed at the old absolute path) — it's been recreated fresh. If you move the project again, recreate `venv/` rather than copying it.\n\n## Frontend (`frontend/`)\n\n```bash\ncd frontend\nnpm install\ncp .env.example .env.local   # set VITE_API_URL to your backend URL\nnpm run dev\n```\n\n### Deploying to Vercel\n\n1. Push this repo to GitHub.\n2. In Vercel, import the repo and set **Root Directory** to `frontend`.\n3. Framework preset: Vite (auto-detected).\n4. Add an environment variable `VITE_API_URL` pointing at your deployed backend (e.g. `https://your-backend.onrender.com`).\n5. Deploy.\n\nMake sure the backend's `ALLOWED_ORIGINS` includes your Vercel domain.\n\n## Pending\n\nData / knowledge graph:\n- [ ] **Review the 505 LLM-inferred node types** in the clean file before trusting\n      them in production — these are the only \"guessed\" values.\n- [ ] **Fold the chunking fix back into `chunking.py`** — the HTML-strip logic\n      currently lives only in `test.py`/`clean_graph.py`; `chunking.py` still has\n      the old `<table>/<div>/<ul>` guard, so a full re-chunk would reintroduce the\n      oversized-chunk bug.\n- [ ] **Delete the stale `rag/json/embeddings.json`** (~276 MB) — retrieval now\n      reads `embeddings.npz` (`retriever.py`); the old JSON is unused dead weight.\n\nQuality (optional, lower priority):\n- [ ] ~25% of chunks produce no graph nodes/relationships — mostly link lists and\n      nav fragments; confirm none are substantive.\n- [ ] ~89% of nodes have empty `properties` — consider enriching if attribute-level\n      retrieval is needed.\n\nDone:\n- [x] Load `graph_documents_clean.jsonl` into Neo4j (`rag/pipeline/load_full_graph.py`).\n- [x] Wire the retriever to both the Neo4j graph (`graph_retriever.py`, full-text\n      index + 1-hop expansion) and the vector index (`retriever.py`), combined in\n      `query_decomposition.py` and served via `api.py`.",
+      "languages": {
+        "Python": 83.2,
+        "JavaScript": 8.1,
+        "CSS": 7.9,
+        "HTML": 0.5,
+        "Dockerfile": 0.3
+      },
+      "topics": [],
+      "stars": 1,
+      "url": "https://github.com/kavyahj04/RAG-Chatbot-Research-Project"
+    },
+    {
+      "repo_name": "stackoverflow-cybersecurity-rag",
+      "description": "RAG chatbot over a cybersecurity subset of the Stack Overflow data dump, built to surface conflicting and complementary community answers instead of returning one definitive answer.",
+      "readme_text": "# Welcome",
+      "languages": {
+        "Python": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/stackoverflow-cybersecurity-rag"
+    },
+    {
+      "repo_name": "therastim-care-platform",
+      "description": "Streamlit care platform for neuromuscular stimulation therapy: patient outcomes, provider panel monitoring, and cohort-based protocol prediction over a SQLite clinical database.",
+      "readme_text": "# TheraStim Health Dashboard\n\nA Streamlit dashboard for a neuromuscular electrical stimulation (NMES) care programme,\nbacked by a SQLite database of synthetic patient data and a set of CatBoost models trained\non it.\n\nThree things live here:\n\n| File | What it is |\n| --- | --- |\n| [therastim.py](therastim.py) | Generates `therastim.db` — schema + 8 weeks of synthetic data for 40 patients and 6 providers. |\n| [train_model.py](train_model.py) | Trains three CatBoost models (power level, program, sessions-to-goal) off that database. |\n| [dashboard.py](dashboard.py) | The Streamlit app: patient view, provider view, and a new-patient protocol recommender. |\n\n## Quick start\n\n```bash\npip install -r requirements-dev.txt   # or just requirements.txt to only run the dashboard\n\npython therastim.py       # (re)build therastim.db — drops and recreates all tables\npython train_model.py     # optional: train and save the .cbm models\nstreamlit run dashboard.py\n```\n\n`therastim.db` is committed, so you can skip straight to `streamlit run dashboard.py`.\nRe-running `therastim.py` **drops every table** and regenerates from seed 42, so the data is\nreproducible but any local edits to the DB are lost.\n\n## The data model\n\nNine tables, all keyed on `patient_id` ([therastim.py:33-136](therastim.py#L33-L136)):\n\n- **providers** — clinician, specialty, clinic, years of experience.\n- **demographics** — age, gender, height, weight, activity level.\n- **conditions** — MS, Stroke, Spinal Cord Injury, or Parkinson's, plus stage and affected region.\n- **baseline_assessment** — pain, muscle strength, walking speed, walking distance, ADL score at intake.\n- **goals** — 1–4 provider-set targets per patient (`pain_reduction`, `walking_distance`, `muscle_strength`, `adl_score`).\n- **sessions** — one row per stimulation session: program, muscles, power level, intensity, duration, pain during session, and safety flags (`interrupted`, `numbness`, `fainting`).\n- **daily_checkin** — sleep hours, mood, bowel habit, one row per patient per day.\n- **weekly_summary** — weekly averages plus `blood_flow_score`. Blood flow is folded in here rather than given its own table because it shares the weekly cadence.\n- **adherence** — sessions prescribed vs. completed vs. missed, as a percentage.\n\nSeverity drives the generator: a more severe stage means higher baseline pain, lower function,\nand slower weekly gains. Adherence, preferred power level, and how many sessions a patient can\nfit into a day are all per-patient tendencies drawn at generation time.\n\n## The dashboard\n\nPick a view from the sidebar.\n\n### Patient view\n\nOne patient's own progress: a 0–100 **Recovery Index**, pain trend against their goal, sessions\ncompleted per week against the 7/week target, goal-progress bars, plain-language interpretation,\nand their last five sessions.\n\n### Provider view\n\nA panel-level view for one clinician — triage split, condition mix, adherence by patient,\nbaseline-vs-now pain, and an adherence-vs-recovery scatter. Then a sortable roster (worst-first)\nand a per-patient deep dive with weekly signals, index breakdown, a TheraStim-vs-standard-care\ncomparison, delivered-therapy mix, and the full session and check-in logs.\n\n### New patient prediction\n\nFill in an intake profile — demographics, clinical picture, baseline assessment, primary goal —\nand get two candidate protocols (an intensive Option A and a gentler Option B) with projected\npain trajectories benchmarked against standard care, plus the matched historical cohort they\nwere derived from.\n\n## How the numbers are derived\n\nEverything computed lives in the metrics layer at the top of [dashboard.py](dashboard.py#L113-L270),\nso the assumptions are in one place and tunable.\n\n**Recovery Index** ([dashboard.py:184](dashboard.py#L184)) blends four 0–100 components with\nweights that sum to 1: pain improvement 0.35, adherence 0.25, blood flow 0.20, engagement 0.20.\nTriage bands are ≥70 on track, ≥40 needs a nudge, below that needs attention.\n\n**Estimated functional metrics** ([dashboard.py:234](dashboard.py#L234)) — the database only\nrecords strength, walking speed, distance, and ADL *at baseline*. There are no follow-up\nassessments, so the dashboard estimates today's value by moving the baseline toward the goal in\nproportion to the patient's measured response, scaled by a per-metric responsiveness factor\n(strength moves first, endurance measures lag). These are marked **est.** everywhere they appear.\nPain is the one functional metric that is genuinely measured week to week. Replace\n`estimate_functional_metrics()` wholesale once real follow-up assessments exist.\n\n**Standard care** columns are modelled from `STANDARD_CARE_RATES`, a set of assumed\nunaided week-on-week change rates for chronic neuro conditions. They are placeholders — swap in\ncontrol-arm numbers when you have them.\n\n**Recommendations** ([dashboard.py:718](dashboard.py#L718)) currently come from a\nnearest-neighbour lookup over historical patients (distance = condition + stage + age +\nbaseline pain), *not* from the trained models. `generate_recommendations()` is the single\nswap point: it takes a profile dict and returns `(option_a, option_b, cohort_df)`, and the UI\nreads nothing else.\n\nEvery database read goes through `q()` ([dashboard.py:100](dashboard.py#L100)), a cached\nhelper — one place to swap SQLite for an API.\n\n## The models\n\n[train_model.py](train_model.py) trains three independent CatBoost models on shared\npatient/session features and saves them as `.cbm` files:\n\n1. **Power level** — a regressor predicting *pain improvement since the previous session* from\n   profile plus settings. Since there is no ground-truth \"correct power level\" label, the trained\n   model is used at inference to score candidate levels 2–10 and pick the best-predicted one.\n2. **Program** — a classifier over the four programs. In the current synthetic data, program is\n   assigned independently of patient profile, so accuracy sits near the majority-class baseline.\n   That is expected, not a bug; it becomes meaningful once real program-specific effects exist.\n3. **Sessions needed** — a patient-level regressor for how many sessions a similar patient needed\n   to hit their pain-reduction goal. Only patients with a `pain_reduction` goal are used, and only\n   those who actually reached it — censored cases (goal not reached in the 8-week window) are\n   flagged and held out rather than treated as clean labels.\n\nThe dashboard does not load these models yet; wiring them in means replacing\n`generate_recommendations()`.\n\n## Deploying to Streamlit Community Cloud\n\nThe app is a single Streamlit entrypoint reading a committed SQLite file, so it deploys as-is —\nno secrets, no external database, nothing to provision.\n\n1. Push `requirements.txt` and `therastim.db` to GitHub. Both must be committed; the cloud\n   builder only sees what is in the repo.\n2. Go to [share.streamlit.io](https://share.streamlit.io), sign in with GitHub, and click\n   **Create app → Deploy a public app from GitHub**.\n3. Point it at this repo, branch `main`, main file path `dashboard.py`.\n4. Under **Advanced settings**, pick Python **3.13**. (Community Cloud does not offer 3.14 yet;\n   the pinned dependencies all work on 3.13.)\n5. Deploy. First build takes a couple of minutes while it installs from `requirements.txt`.\n\n`requirements.txt` deliberately holds only what [dashboard.py](dashboard.py) imports —\nstreamlit, pandas, plotly. `numpy`, `catboost`, and `scikit-learn` sit in\n[requirements-dev.txt](requirements-dev.txt) because only the generator and training scripts\nneed them, and catboost is a heavy install that would slow every cloud build for no benefit.\n\nThings to know about the hosted environment:\n\n- **The filesystem is ephemeral.** Anything written to `therastim.db` at runtime is lost on the\n  next restart or redeploy. The dashboard is read-only, so this is fine as-is — but do not add\n  write-back features without moving to a real hosted database.\n- **Do not run `therastim.py` on the server.** It drops and recreates every table.\n- **The app sleeps after inactivity** on the free tier and wakes on the next visit, taking a few\n  seconds. `@st.cache_data` warms again on first use.\n- **Pushing to `main` redeploys automatically.**\n- The data is synthetic, so a public app leaks nothing. If you ever point this at real patient\n  data, Community Cloud is not an appropriate host.\n\n### Other options\n\n`streamlit run dashboard.py --server.port 8501 --server.address 0.0.0.0` is all any host needs.\nFor a container, a `python:3.13-slim` base, `pip install -r requirements.txt`, and that command\nas `CMD` is the whole Dockerfile — which is what Cloud Run, Fly.io, Render, or an internal box\nwould want.\n\n## Caveats\n\n- All patient data is synthetic, generated from seed 42. Nothing here is clinical evidence.\n- Functional metrics other than pain, and every standard-care figure, are **modelled estimates**,\n  not measurements.\n- The recommendation view is a cohort lookup, not a trained model.",
+      "languages": {
+        "Python": 100.0
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/therastim-care-platform"
+    },
+    {
+      "repo_name": "Web_Master_3",
+      "description": "Express.js REST API for a lending library system with book management, checkout, and return endpoints over HTTPS.",
+      "readme_text": "# Project 3 — Lending Library REST Web Services\n\nExpress.js REST API wrapping the lending library from Project 2, exposing book management and lending operations over HTTPS.\n\n## What This Project Does\n- GET /api/books/:isbn — Get book by ISBN\n- PUT /api/books — Add a book\n- GET /api/books?search=X — Find books by keyword\n- PUT /api/lendings — Checkout a book\n- DELETE /api/lendings — Return a book\n- DELETE /api — Clear all data\n\n## Tech Stack\n- TypeScript\n- Express.js\n- Node.js\n- MongoDB\n- Mocha + Supertest (testing)\n\n## How to Run\n```bash",
+      "languages": {
+        "TypeScript": 97.7,
+        "JavaScript": 1.4,
+        "Shell": 0.9
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/Web_Master_3"
+    },
+    {
+      "repo_name": "Web_Project04",
+      "description": "Single page app for a lending library — search, checkout, and return books via a TypeScript frontend connected to an Express REST API.",
+      "readme_text": "# Project 4 — Lending Library Single Page App\n\nBrowser-based single page application for the lending library system, connecting to the Project 3 REST API.\n\n## What This Project Does\n- Search books by keyword with pagination\n- View book details\n- Checkout books by patron ID\n- Return books\n- Real-time borrower list updates\n\n## Tech Stack\n- TypeScript\n- DOM API\n- Connects to Project 3 Express backend at https://localhost:2345\n\n## How to Run\n```bash\nnpm ci\nnpm run build\nnpm start\n```\n\nOpen http://localhost:2346 in your browser.\n\n## Requirements\n- Project 3 server must be running at https://localhost:2345",
+      "languages": {
+        "TypeScript": 81.0,
+        "HTML": 9.6,
+        "CSS": 9.4
+      },
+      "topics": [],
+      "stars": 0,
+      "url": "https://github.com/kavyahj04/Web_Project04"
+    }
+  ]
+}
