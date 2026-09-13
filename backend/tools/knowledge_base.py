@@ -2,6 +2,9 @@ from pathlib import Path
 
 import chromadb
 from chromadb.utils import embedding_functions
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
 
 SEARCH_KNOWLEDGE_BASE_SCHEMA = {
     "type": "function",
@@ -38,7 +41,7 @@ SEARCH_KNOWLEDGE_BASE_SCHEMA = {
 VECTORDB_PATH = Path(__file__).resolve().parent.parent / "my_vectordb"
 
 client = chromadb.PersistentClient(path=str(VECTORDB_PATH))
-embedding_fn = embedding_functions.DefaultEmbeddingFunction()
+embedding_fn = embedding_functions.OpenAIEmbeddingFunction(model_name="text-embedding-3-small")
 collection = client.get_collection("digital-twin", embedding_function=embedding_fn)
 
 def search_knowledge_base(query:str, n_results:int=5) -> dict:

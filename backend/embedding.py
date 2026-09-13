@@ -1,13 +1,16 @@
 import json
 import chromadb
 from chromadb.utils import embedding_functions
+from dotenv import load_dotenv
+
+load_dotenv(override=True)
 
 def load_chunks(path:str) -> list[dict]:
     return json.load(open(path, encoding="utf-8"))
 
 def build_index(chunks:list[dict], persist_dir:str="my_vectordb"):
     client = chromadb.PersistentClient(path=persist_dir)
-    embedding_fn = embedding_functions.DefaultEmbeddingFunction()
+    embedding_fn = embedding_functions.OpenAIEmbeddingFunction(model_name="text-embedding-3-small")
 
     collection = client.get_or_create_collection(
         name = "digital-twin",
