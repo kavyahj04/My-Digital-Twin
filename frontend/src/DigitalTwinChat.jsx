@@ -68,11 +68,14 @@ export default function DigitalTwinChat() {
       <div
         style={{
           width: "100%",
+          maxWidth: "100%",
+          minWidth: 0,
           display: "flex",
           gap: "10px",
           alignItems: "center",
           background: "#FFFFFF",
           borderRadius: "9999px",
+          overflow: "hidden",
           border: inputFocused ? "1px solid #A855F7" : "1px solid #E5E3F0",
           boxShadow: inputFocused
             ? "0 0 0 3px rgba(168,85,247,0.15)"
@@ -94,9 +97,10 @@ export default function DigitalTwinChat() {
           placeholder="Ask anything about Kavya..."
           style={{
             flex: 1,
+            minWidth: 0,
             border: "none",
             padding: isHero ? "10px 4px" : "7px 4px",
-            fontSize: isHero ? "17px" : "15px",
+            fontSize: isHero ? "17px" : "16px",
             outline: "none",
             background: "transparent",
             fontFamily: "'Inter', sans-serif",
@@ -127,9 +131,8 @@ export default function DigitalTwinChat() {
 
   return (
     <div
-      className="hero-bg"
+      className="hero-bg app-shell"
       style={{
-        height: "100vh",
         width: "100%",
         background: "#FFFFFF",
         display: "flex",
@@ -142,7 +145,33 @@ export default function DigitalTwinChat() {
         @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap');
 
         * { box-sizing: border-box; }
-        html, body, #root { height: 100%; margin: 0; }
+        html, body, #root { height: 100%; margin: 0; overflow-x: hidden; }
+
+        .app-shell { height: 100vh; height: 100dvh; }
+
+        .hero-section { padding: 24px 32px; }
+        .hero-heading { font-size: 44px; }
+        .header-bar { padding: 24px 32px; }
+        .messages-inner { padding: 28px 32px; }
+        .input-outer { padding: 18px 32px 24px; }
+        .msg-bubble { max-width: 70%; }
+
+        @media (max-width: 640px) {
+          .hero-section { padding: 16px 16px; gap: 20px !important; }
+          .hero-heading { font-size: 26px !important; line-height: 1.25; }
+          .header-bar { padding: 16px 16px !important; }
+          .header-bar h1 { font-size: 20px !important; }
+          .header-bar p { font-size: 13px !important; }
+          .messages-inner { padding: 16px 12px !important; gap: 12px !important; }
+          .input-outer { padding: 10px 12px 14px !important; }
+          .msg-bubble { max-width: 88% !important; font-size: 14.5px !important; }
+          .gradient-ring { width: 34px !important; height: 34px !important; }
+          .gradient-ring > div { width: 28px !important; height: 28px !important; }
+        }
+
+        @media (max-width: 380px) {
+          .hero-heading { font-size: 22px !important; }
+        }
 
         @keyframes orb-spin { to { transform: rotate(360deg); } }
         @keyframes orb-breathe {
@@ -195,13 +224,9 @@ export default function DigitalTwinChat() {
         .md pre { background: rgba(0,0,0,0.06); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; }
         .md pre code { background: none; padding: 0; }
         .md h1, .md h2, .md h3 { margin: 0 0 8px; font-size: 1em; font-weight: 600; color: #211C36; }
-        .md table { display: block; overflow-x: auto; border-collapse: collapse; width: max-content; max-width: 100%; font-size: 0.92em; margin: 0 0 8px; }
-        .md th, .md td { border: 1px solid #E5E3F0; padding: 6px 12px; text-align: left; }
+        .md table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-collapse: collapse; width: max-content; max-width: 100%; font-size: 0.92em; margin: 0 0 8px; }
+        .md th, .md td { border: 1px solid #E5E3F0; padding: 6px 12px; text-align: left; white-space: nowrap; }
         .md th { background: rgba(168, 85, 247, 0.08); font-weight: 600; color: #211C36; }
-
-        @media (max-width: 640px) {
-          .hero-heading { font-size: 30px !important; }
-        }
       `}</style>
 
       {/* thin black bar across the top of the page */}
@@ -210,13 +235,13 @@ export default function DigitalTwinChat() {
       {!hasStarted ? (
         /* Hero / empty state */
         <div
+          className="hero-section"
           style={{
             flex: 1,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            padding: "24px 32px",
             gap: "32px",
           }}
         >
@@ -225,7 +250,6 @@ export default function DigitalTwinChat() {
             style={{
               fontFamily: "'Space Grotesk', sans-serif",
               fontWeight: 500,
-              fontSize: "44px",
               color: "#211C36",
               margin: 0,
               textAlign: "center",
@@ -239,8 +263,8 @@ export default function DigitalTwinChat() {
         <>
           {/* Header */}
           <div
+            className="header-bar"
             style={{
-              padding: "24px 32px",
               display: "flex",
               flexDirection: "column",
               gap: "6px",
@@ -294,12 +318,13 @@ export default function DigitalTwinChat() {
             className="chat-scroll"
             style={{ flex: 1, overflowY: "auto", display: "flex", justifyContent: "center" }}
           >
-            <div style={{ width: "100%", maxWidth: "880px", padding: "28px 32px", display: "flex", flexDirection: "column", gap: "16px" }}>
+            <div className="messages-inner" style={{ width: "100%", maxWidth: "880px", display: "flex", flexDirection: "column", gap: "16px" }}>
               {messages.map((m, i) => (
                 <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start" }}>
                   <div
+                    className={m.role === "user" ? "msg-bubble" : ""}
                     style={{
-                      maxWidth: m.role === "user" ? "70%" : "100%",
+                      maxWidth: m.role === "user" ? undefined : "100%",
                       padding: "12px 16px",
                       borderRadius: m.role === "user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
                       fontSize: "15px",
@@ -331,7 +356,7 @@ export default function DigitalTwinChat() {
 
           {/* Input */}
           <div style={{ borderTop: "1px solid rgba(20, 18, 31, 0.08)", display: "flex", justifyContent: "center", flexShrink: 0 }}>
-            <div style={{ width: "100%", maxWidth: "880px", padding: "18px 32px 24px" }}>{renderInputBar("bar")}</div>
+            <div className="input-outer" style={{ width: "100%", maxWidth: "880px" }}>{renderInputBar("bar")}</div>
           </div>
         </>
       )}
