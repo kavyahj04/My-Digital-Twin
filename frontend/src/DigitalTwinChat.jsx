@@ -126,6 +126,7 @@ export default function DigitalTwinChat() {
 
   return (
     <div
+      className="hero-bg"
       style={{
         height: "100vh",
         width: "100%",
@@ -205,7 +206,6 @@ export default function DigitalTwinChat() {
       {!hasStarted ? (
         /* Hero / empty state */
         <div
-          className="hero-bg"
           style={{
             flex: 1,
             display: "flex",
@@ -236,53 +236,53 @@ export default function DigitalTwinChat() {
           {/* Header */}
           <div
             style={{
-              padding: "28px 32px 20px",
+              padding: "24px 32px",
               display: "flex",
               flexDirection: "column",
               gap: "6px",
-              borderBottom: "1px solid #F0EFF6",
-              maxWidth: "880px",
-              width: "100%",
-              margin: "0 auto",
+              background: "#14121F",
+              boxShadow: "0 4px 20px rgba(20, 18, 31, 0.15)",
             }}
           >
-            <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-              <div
-                className="gradient-ring"
-                style={{
-                  width: "42px",
-                  height: "42px",
-                  borderRadius: "9999px",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  flexShrink: 0,
-                }}
-              >
+            <div style={{ maxWidth: "880px", width: "100%", margin: "0 auto", display: "flex", flexDirection: "column", gap: "6px" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
                 <div
+                  className="gradient-ring"
                   style={{
-                    width: "36px",
-                    height: "36px",
+                    width: "42px",
+                    height: "42px",
                     borderRadius: "9999px",
-                    background: "#FFFFFF",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
+                    flexShrink: 0,
                   }}
                 >
-                  <Sparkles size={17} color="#A855F7" />
+                  <div
+                    style={{
+                      width: "36px",
+                      height: "36px",
+                      borderRadius: "9999px",
+                      background: "#14121F",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Sparkles size={17} color="#C084FC" />
+                  </div>
                 </div>
+                <h1
+                  className="gradient-text"
+                  style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "26px", margin: 0 }}
+                >
+                  Kavya's Digital Twin
+                </h1>
               </div>
-              <h1
-                className="gradient-text"
-                style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "26px", margin: 0 }}
-              >
-                Kavya's Digital Twin
-              </h1>
+              <p style={{ margin: 0, fontSize: "14.5px", color: "#A9A6BD", lineHeight: 1.45 }}>
+                Ask me anything about Kavya's professional background - her projects, skills, and experience.
+              </p>
             </div>
-            <p style={{ margin: 0, fontSize: "14.5px", color: "#6B7280", lineHeight: 1.45 }}>
-              Ask me anything about Kavya's professional background - her projects, skills, and experience.
-            </p>
           </div>
 
           {/* Messages */}
@@ -326,7 +326,7 @@ export default function DigitalTwinChat() {
           </div>
 
           {/* Input */}
-          <div style={{ borderTop: "1px solid #F0EFF6", display: "flex", justifyContent: "center", flexShrink: 0 }}>
+          <div style={{ borderTop: "1px solid rgba(20, 18, 31, 0.08)", display: "flex", justifyContent: "center", flexShrink: 0 }}>
             <div style={{ width: "100%", maxWidth: "880px", padding: "18px 32px 24px" }}>{renderInputBar("bar")}</div>
           </div>
         </>
