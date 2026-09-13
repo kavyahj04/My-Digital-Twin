@@ -99,7 +99,7 @@ export default function DigitalTwinChat() {
           .send-btn { transition: none !important; }
         }
 
-        .gradient-bar { background: linear-gradient(90deg, #4F46E5, #A855F7, #EC4899); }
+        .gradient-bar { background: #000000; }
         .gradient-ring { background: linear-gradient(135deg, #4F46E5, #A855F7, #EC4899); }
         .gradient-text {
           background: linear-gradient(135deg, #4F46E5, #A855F7, #EC4899);
