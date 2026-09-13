@@ -37,7 +37,7 @@ export default function DigitalTwinChat() {
       if (!response.ok) throw new Error("Request failed");
       const data = await response.json();
       setSessionId(data.session_id);
-      setMessages((prev) => [...prev, { role: "assistant", content: data.reply }]);
+      setMessages((prev) => [...prev, { role: "assistant", content: data.reply, sources: data.sources }]);
     } catch (err) {
       // Fallback only so this design can be previewed without a live backend.
       // Remove this catch's content once wired to your real deployed API.
@@ -339,6 +339,37 @@ export default function DigitalTwinChat() {
                       </div>
                     ) : (
                       m.content
+                    )}
+                    {m.role === "assistant" && m.sources?.length > 0 && (
+                      <div
+                        style={{
+                          marginTop: "10px",
+                          paddingTop: "8px",
+                          borderTop: "1px solid rgba(0,0,0,0.08)",
+                          fontSize: "12.5px",
+                          color: "#6B7280",
+                          display: "flex",
+                          flexWrap: "wrap",
+                          gap: "10px",
+                        }}
+                      >
+                        <span>Sources:</span>
+                        {m.sources.map((s, idx) =>
+                          s.url ? (
+                            <a
+                              key={idx}
+                              href={s.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              style={{ color: "#A855F7" }}
+                            >
+                              {s.title}
+                            </a>
+                          ) : (
+                            <span key={idx}>{s.title}</span>
+                          )
+                        )}
+                      </div>
                     )}
                   </div>
                 </div>

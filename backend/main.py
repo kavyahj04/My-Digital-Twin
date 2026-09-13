@@ -30,6 +30,7 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     session_id:str
     reply : str
+    sources : list[dict] = []
 
 @app.post("/chat", response_model=ChatResponse)
 def chat(request:ChatRequest):
@@ -45,8 +46,9 @@ def chat(request:ChatRequest):
     if len(history) > MAX_HISTORY_MESSAGES + 1:
         SESSIONS[session_id] = [history[0], *history[-MAX_HISTORY_MESSAGES:]]
 
+    sources = []
     try:
-        reply = run_converstion(SESSIONS[session_id])
+        reply, sources = run_converstion(SESSIONS[session_id])
     except APIStatusError as e:
         # covers both 429 (rate limit) and 413 (request too large for the
         # TPM cap) - both stem from the same per-minute token ceiling
@@ -56,7 +58,7 @@ def chat(request:ChatRequest):
         print(f"chat error: {e}")
         reply = "Something went wrong on my end processing that. Please try again."
 
-    return ChatResponse(session_id=session_id, reply=reply)
+    return ChatResponse(session_id=session_id, reply=reply, sources=sources)
 
 @app.get("/health")
 def health():

@@ -49,6 +49,7 @@ def search_knowledge_base(query:str, n_results:int=10) -> dict:
     matches = [
         {"source": meta["entity_name"],
         "source_type" : meta["source_type"],
+        "url": meta["url"],
         "content" : doc
         }
         for doc, meta in zip(results["documents"][0], results["metadatas"][0])
