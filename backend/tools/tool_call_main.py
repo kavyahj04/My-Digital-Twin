@@ -69,7 +69,7 @@ def run_converstion(messages:list[dict]) -> str:
        rounds += 1
        # cap tool-calling rounds so a model stuck re-querying can't loop forever
        tool_choice = "auto" if rounds < MAX_TOOL_ROUNDS else "none"
-       response = openai_client.chat.completions.create(model = "gpt-5.6-luna", messages=messages, tools=TOOLS, tool_choice=tool_choice)
+       response = openai_client.chat.completions.create(model = "gpt-5.6-luna", messages=messages, tools=TOOLS,reasoning_effort="none", tool_choice=tool_choice)
        message = response.choices[0].message
     messages.append({"role": "assistant", "content": message.content})
     return response.choices[0].message.content
