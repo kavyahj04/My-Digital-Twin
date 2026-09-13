@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { Plus, Send, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 
 const API_URL = "https://my-digital-twin-fkkv.onrender.com/chat";
@@ -194,6 +195,9 @@ export default function DigitalTwinChat() {
         .md pre { background: rgba(0,0,0,0.06); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; }
         .md pre code { background: none; padding: 0; }
         .md h1, .md h2, .md h3 { margin: 0 0 8px; font-size: 1em; font-weight: 600; color: #211C36; }
+        .md table { display: block; overflow-x: auto; border-collapse: collapse; width: max-content; max-width: 100%; font-size: 0.92em; margin: 0 0 8px; }
+        .md th, .md td { border: 1px solid #E5E3F0; padding: 6px 12px; text-align: left; }
+        .md th { background: rgba(168, 85, 247, 0.08); font-weight: 600; color: #211C36; }
 
         @media (max-width: 640px) {
           .hero-heading { font-size: 30px !important; }
@@ -295,7 +299,7 @@ export default function DigitalTwinChat() {
                 <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start" }}>
                   <div
                     style={{
-                      maxWidth: "70%",
+                      maxWidth: m.role === "user" ? "70%" : "100%",
                       padding: "12px 16px",
                       borderRadius: m.role === "user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
                       fontSize: "15px",
@@ -306,7 +310,7 @@ export default function DigitalTwinChat() {
                   >
                     {m.role === "assistant" ? (
                       <div className="md">
-                        <ReactMarkdown>{m.content}</ReactMarkdown>
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>{m.content}</ReactMarkdown>
                       </div>
                     ) : (
                       m.content
