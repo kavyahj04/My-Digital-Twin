@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 import { Send, Sparkles } from "lucide-react";
 
 
-const API_URL = "http://localhost:8000/chat";
+const API_URL = "https://dashboard.render.com/web/srv-daiuppnqj5pc73bl74fg/deploys/dep-daiuv2jm8hqs73ec9ih0";
 
 const WELCOME_MESSAGE = {
   role: "assistant",
