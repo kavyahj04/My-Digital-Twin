@@ -14,7 +14,7 @@ from prompts.sys_prompt import SYSTEM_PROMPT
 
 load_dotenv(override=True)
 
-# groq_api_key = os.getenv("GROQ_API_KEY")
+groq_api_key = os.getenv("GROQ_API_KEY")
 openai_api_key = os.getenv("OPENAI_API_KEY")
 openai_client = OpenAI()
 
@@ -27,6 +27,8 @@ TOOL_FUNCTIONS = {
 }
 
 TOOLS = [COLLECT_CONTACT_INFO_SCHEMA, SEARCH_KNOWLEDGE_BASE_SCHEMA, FLAG_OFF_TOPIC_SCHEMA]
+
+MAX_TOOL_ROUNDS = 3
 
 def execute_tool_calls(message, messages:list[dict]) -> list[dict]:
     # record the model request as an assistant turn
@@ -61,9 +63,13 @@ def execute_tool_calls(message, messages:list[dict]) -> list[dict]:
 def run_converstion(messages:list[dict]) -> str:
     response = openai_client.chat.completions.create(model = "gpt-5.6-luna", messages= messages, tools = TOOLS, tool_choice="auto")
     message = response.choices[0].message
+    rounds = 0
     while response.choices[0].finish_reason=="tool_calls":
        messages = execute_tool_calls(message, messages)
-       response = openai_client.chat.completions.create(model = "gpt-5.6-luna", messages=messages, tools=TOOLS, tool_choice="auto")
+       rounds += 1
+       # cap tool-calling rounds so a model stuck re-querying can't loop forever
+       tool_choice = "auto" if rounds < MAX_TOOL_ROUNDS else "none"
+       response = openai_client.chat.completions.create(model = "gpt-5.6-luna", messages=messages, tools=TOOLS, tool_choice=tool_choice)
        message = response.choices[0].message
     messages.append({"role": "assistant", "content": message.content})
     return response.choices[0].message.content

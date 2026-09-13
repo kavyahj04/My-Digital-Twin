@@ -30,7 +30,7 @@ SEARCH_KNOWLEDGE_BASE_SCHEMA = {
                 },
                 "n_results": {
                     "type": "integer",
-                    "description": "How many results to retrieve. Defaults to 5; use more for broad questions. less if you could not find 5,",
+                    "description": "How many results to retrieve. Defaults to 10; use more for broad questions, less if you could not find 10,",
                 },
             },
             "required": ["query"],
@@ -44,7 +44,7 @@ client = chromadb.PersistentClient(path=str(VECTORDB_PATH))
 embedding_fn = embedding_functions.OpenAIEmbeddingFunction(model_name="text-embedding-3-small")
 collection = client.get_collection("digital-twin", embedding_function=embedding_fn)
 
-def search_knowledge_base(query:str, n_results:int=5) -> dict:
+def search_knowledge_base(query:str, n_results:int=10) -> dict:
     results = collection.query(query_texts=[query], n_results=n_results)
     matches = [
         {"source": meta["entity_name"],
