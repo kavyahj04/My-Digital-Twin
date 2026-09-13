@@ -14,7 +14,9 @@ from prompts.sys_prompt import SYSTEM_PROMPT
 
 load_dotenv(override=True)
 
-groq_api_key = os.getenv("GROQ_API_KEY")
+# groq_api_key = os.getenv("GROQ_API_KEY")
+openai_api_key = os.getenv("OPENAI_API_KEY")
+openai_client = OpenAI()
 
 groq = OpenAI(base_url="https://api.groq.com/openai/v1", api_key = groq_api_key)
 
@@ -57,11 +59,11 @@ def execute_tool_calls(message, messages:list[dict]) -> list[dict]:
     return messages
 
 def run_converstion(messages:list[dict]) -> str:
-    response = groq.chat.completions.create(model = "openai/gpt-oss-120b", messages= messages, tools = TOOLS, tool_choice="auto")
+    response = openai_client.chat.completions.create(model = "gpt-5.6-luna", messages= messages, tools = TOOLS, tool_choice="auto")
     message = response.choices[0].message
     while response.choices[0].finish_reason=="tool_calls":
        messages = execute_tool_calls(message, messages)
-       response = groq.chat.completions.create(model = "openai/gpt-oss-120b", messages=messages, tools=TOOLS, tool_choice="auto")
+       response = openai_client.chat.completions.create(model = "gpt-5.6-luna", messages=messages, tools=TOOLS, tool_choice="auto")
        message = response.choices[0].message
     messages.append({"role": "assistant", "content": message.content})
     return response.choices[0].message.content
