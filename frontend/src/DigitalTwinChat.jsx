@@ -73,14 +73,14 @@ export default function DigitalTwinChat() {
           display: "flex",
           gap: "10px",
           alignItems: "center",
-          background: "#FFFFFF",
+          background: "var(--ink-900)",
           borderRadius: "9999px",
           overflow: "hidden",
-          border: inputFocused ? "1px solid #A855F7" : "1px solid #E5E3F0",
+          border: inputFocused ? "1px solid var(--iface)" : "1px solid rgba(255,255,255,0.1)",
           boxShadow: inputFocused
-            ? "0 0 0 3px rgba(168,85,247,0.15)"
+            ? "0 0 0 3px rgba(47,107,255,0.25)"
             : isHero
-            ? "0 8px 30px rgba(79, 70, 229, 0.08)"
+            ? "0 8px 30px rgba(0,0,0,0.35)"
             : "none",
           padding: isHero ? "10px 12px 10px 22px" : "6px 8px 6px 20px",
           transition: "box-shadow 0.15s ease, border-color 0.15s ease",
@@ -102,8 +102,8 @@ export default function DigitalTwinChat() {
             fontSize: isHero ? "17px" : "16px",
             outline: "none",
             background: "transparent",
-            fontFamily: "'Inter', sans-serif",
-            color: "#211C36",
+            fontFamily: "'IBM Plex Sans', sans-serif",
+            color: "var(--cream-100)",
           }}
         />
         <button
@@ -122,7 +122,7 @@ export default function DigitalTwinChat() {
             flexShrink: 0,
           }}
         >
-          <Send size={18} color="#FFFFFF" />
+          <Send size={18} color="var(--ink-950)" />
         </button>
       </div>
     );
@@ -133,33 +133,62 @@ export default function DigitalTwinChat() {
       className="hero-bg app-shell"
       style={{
         width: "100%",
-        background: "#FFFFFF",
+        background: "var(--ink-950)",
         display: "flex",
         flexDirection: "column",
-        fontFamily: "'Inter', sans-serif",
+        fontFamily: "'IBM Plex Sans', sans-serif",
         boxSizing: "border-box",
       }}
     >
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+
+        :root {
+          --ink-950: #080808;
+          --ink-900: #101010;
+          --ink-800: #181818;
+          --ink-700: #242424;
+          --ink-500: #5A5A5A;
+
+          --cream-100: #F4F1EA;
+          --cream-200: #EAE7DF;
+          --cream-300: #DAD5C8;
+          --cream-400: #B9B2A3;
+          --cream-500: #8C8677;
+
+          --user: #8B5CF6;
+          --iface: #2F6BFF;
+          --api: #22C55E;
+          --ai: #F97316;
+          --data: #EC4899;
+          --cloud: #B9B2A3;
+        }
 
         * { box-sizing: border-box; }
-        html, body, #root { height: 100%; margin: 0; overflow-x: hidden; }
+        html, body, #root { height: 100%; margin: 0; overflow-x: hidden; background: var(--ink-950); }
 
         .app-shell { height: 100vh; height: 100dvh; }
 
+        .mono-label {
+          font-family: 'IBM Plex Mono', monospace;
+          font-size: 12.5px;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          color: var(--cream-400);
+        }
+
         .hero-section { padding: 24px 32px; }
-        .hero-heading { font-size: 44px; }
-        .header-bar { padding: 24px 32px; }
+        .hero-heading { font-size: 40px; }
+        .header-bar { padding: 20px 32px; }
         .messages-inner { padding: 28px 32px; }
         .input-outer { padding: 18px 32px 24px; }
         .msg-bubble { max-width: 70%; }
 
         @media (max-width: 640px) {
           .hero-section { padding: 16px 16px; gap: 20px !important; }
-          .hero-heading { font-size: 26px !important; line-height: 1.25; }
-          .header-bar { padding: 16px 16px !important; }
-          .header-bar h1 { font-size: 20px !important; }
+          .hero-heading { font-size: 24px !important; line-height: 1.25; }
+          .header-bar { padding: 14px 16px !important; }
+          .header-bar h1 { font-size: 19px !important; }
           .header-bar p { font-size: 13px !important; }
           .messages-inner { padding: 16px 12px !important; gap: 12px !important; }
           .input-outer { padding: 10px 12px 14px !important; }
@@ -169,7 +198,16 @@ export default function DigitalTwinChat() {
         }
 
         @media (max-width: 380px) {
+          .hero-heading { font-size: 20px !important; }
+        }
+
+        /* Compact mode for the ~520-760px tall embed box on the portfolio */
+        @media (max-height: 640px) {
+          .hero-section { padding: 14px 20px !important; gap: 16px !important; }
           .hero-heading { font-size: 22px !important; }
+          .header-bar { padding: 12px 20px !important; }
+          .messages-inner { padding: 16px 20px !important; gap: 10px !important; }
+          .input-outer { padding: 10px 20px 12px !important; }
         }
 
         @keyframes orb-spin { to { transform: rotate(360deg); } }
@@ -181,7 +219,7 @@ export default function DigitalTwinChat() {
           width: 20px;
           height: 20px;
           border-radius: 9999px;
-          background: conic-gradient(from 0deg, #4F46E5, #A855F7, #EC4899, #4F46E5);
+          background: conic-gradient(from 0deg, var(--user), var(--iface), var(--api), var(--ai), var(--data), var(--user));
           animation: orb-spin 1.6s linear infinite, orb-breathe 1.6s ease-in-out infinite;
         }
         @media (prefers-reduced-motion: reduce) {
@@ -189,27 +227,22 @@ export default function DigitalTwinChat() {
           .send-btn { transition: none !important; }
         }
 
-        .gradient-bar { background: #000000; }
-        .gradient-ring { background: linear-gradient(135deg, #4F46E5, #A855F7, #EC4899); }
-        .gradient-text {
-          background: linear-gradient(135deg, #4F46E5, #A855F7, #EC4899);
-          -webkit-background-clip: text;
-          background-clip: text;
-          color: transparent;
-        }
-        .send-btn { background: linear-gradient(135deg, #4F46E5, #A855F7, #EC4899); transition: transform 0.15s ease, box-shadow 0.15s ease; }
-        .send-btn:hover:not(:disabled) { transform: scale(1.06); box-shadow: 0 6px 20px rgba(168, 85, 247, 0.35); }
+        .gradient-bar { background: linear-gradient(90deg, var(--user), var(--iface), var(--api), var(--ai), var(--data)); }
+        .gradient-ring { background: var(--ink-800); border: 2px solid var(--ai); }
+
+        .send-btn { background: var(--ai); transition: transform 0.15s ease, box-shadow 0.15s ease; }
+        .send-btn:hover:not(:disabled) { transform: scale(1.06); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35); }
         .send-btn:disabled { opacity: 0.4; cursor: not-allowed; }
-        .send-btn:focus-visible { outline: 2px solid #A855F7; outline-offset: 2px; }
+        .send-btn:focus-visible { outline: 2px solid var(--iface); outline-offset: 2px; }
 
         .chat-input:focus-visible { outline: none; }
 
         .chat-scroll::-webkit-scrollbar { width: 8px; }
-        .chat-scroll::-webkit-scrollbar-thumb { background: #E4E1F5; border-radius: 999px; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: var(--ink-700); border-radius: 999px; }
 
         .hero-bg {
-          background: radial-gradient(circle at 65% 45%, rgba(168, 85, 247, 0.12), transparent 55%),
-            radial-gradient(circle at 30% 60%, rgba(79, 70, 229, 0.08), transparent 50%);
+          background: radial-gradient(circle at 65% 45%, rgba(249, 115, 22, 0.10), transparent 55%),
+            radial-gradient(circle at 30% 60%, rgba(139, 92, 246, 0.10), transparent 50%);
         }
 
         .md p { margin: 0 0 8px; }
@@ -217,18 +250,23 @@ export default function DigitalTwinChat() {
         .md ul, .md ol { margin: 0 0 8px; padding-left: 20px; }
         .md ul:last-child, .md ol:last-child { margin-bottom: 0; }
         .md li { margin-bottom: 4px; }
-        .md strong { color: #211C36; font-weight: 600; }
-        .md a { color: #A855F7; }
-        .md code { background: rgba(0,0,0,0.06); border-radius: 4px; padding: 1px 5px; font-size: 0.9em; }
-        .md pre { background: rgba(0,0,0,0.06); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; }
+        .md strong { color: var(--cream-100); font-weight: 600; }
+        .md a { color: var(--iface); }
+        .md code { font-family: 'IBM Plex Mono', monospace; background: var(--ink-800); border-radius: 4px; padding: 1px 5px; font-size: 0.9em; color: var(--cream-200); }
+        .md pre { background: var(--ink-800); border-radius: 8px; padding: 10px 12px; overflow-x: auto; margin: 0 0 8px; }
         .md pre code { background: none; padding: 0; }
-        .md h1, .md h2, .md h3 { margin: 0 0 8px; font-size: 1em; font-weight: 600; color: #211C36; }
+        .md h1, .md h2, .md h3 { margin: 0 0 8px; font-size: 1em; font-weight: 600; color: var(--cream-100); font-family: 'Bricolage Grotesque', sans-serif; }
         .md table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; border-collapse: collapse; width: max-content; max-width: 100%; font-size: 0.92em; margin: 0 0 8px; }
-        .md th, .md td { border: 1px solid #E5E3F0; padding: 6px 12px; text-align: left; white-space: nowrap; }
-        .md th { background: rgba(168, 85, 247, 0.08); font-weight: 600; color: #211C36; }
+        .md th, .md td { border: 1px solid rgba(255,255,255,0.1); padding: 6px 12px; text-align: left; white-space: nowrap; }
+        .md th { background: var(--ink-800); font-weight: 600; color: var(--cream-100); }
+
+        a:focus-visible, input:focus-visible, button:focus-visible {
+          outline: 2px solid var(--iface);
+          outline-offset: 2px;
+        }
       `}</style>
 
-      {/* thin black bar across the top of the page */}
+      {/* thin layer-gradient bar across the top of the page */}
       <div className="gradient-bar" style={{ height: "4px", width: "100%", flexShrink: 0 }} />
 
       {!hasStarted ? (
@@ -241,21 +279,24 @@ export default function DigitalTwinChat() {
             flexDirection: "column",
             alignItems: "center",
             justifyContent: "center",
-            gap: "32px",
+            gap: "28px",
           }}
         >
-          <h1
-            className="hero-heading"
-            style={{
-              fontFamily: "'Space Grotesk', sans-serif",
-              fontWeight: 500,
-              color: "#211C36",
-              margin: 0,
-              textAlign: "center",
-            }}
-          >
-            Hi, what would you like to know about Kavya?
-          </h1>
+          <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "14px" }}>
+            <span className="mono-label">Digital Twin · AI Assistant</span>
+            <h1
+              className="hero-heading"
+              style={{
+                fontFamily: "'Bricolage Grotesque', sans-serif",
+                fontWeight: 600,
+                color: "var(--cream-100)",
+                margin: 0,
+                textAlign: "center",
+              }}
+            >
+              Hi, what would you like to know about Kavya?
+            </h1>
+          </div>
           <div style={{ width: "100%", maxWidth: "700px" }}>{renderInputBar("hero")}</div>
         </div>
       ) : (
@@ -267,8 +308,8 @@ export default function DigitalTwinChat() {
               display: "flex",
               flexDirection: "column",
               gap: "6px",
-              background: "#14121F",
-              boxShadow: "0 4px 20px rgba(20, 18, 31, 0.15)",
+              background: "var(--ink-900)",
+              borderBottom: "1px solid rgba(255,255,255,0.1)",
             }}
           >
             <div style={{ maxWidth: "880px", width: "100%", margin: "0 auto", display: "flex", flexDirection: "column", gap: "6px" }}>
@@ -285,28 +326,23 @@ export default function DigitalTwinChat() {
                     flexShrink: 0,
                   }}
                 >
-                  <div
-                    style={{
-                      width: "36px",
-                      height: "36px",
-                      borderRadius: "9999px",
-                      background: "#14121F",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                    }}
-                  >
-                    <Sparkles size={17} color="#C084FC" />
-                  </div>
+                  <Sparkles size={17} color="var(--ai)" />
                 </div>
-                <h1
-                  className="gradient-text"
-                  style={{ fontFamily: "'Space Grotesk', sans-serif", fontWeight: 700, fontSize: "26px", margin: 0 }}
-                >
-                  Kavya's Digital Twin
-                </h1>
+                <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
+                  <h1
+                    style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontWeight: 700, fontSize: "24px", margin: 0, color: "var(--cream-100)" }}
+                  >
+                    Kavya's Digital Twin
+                  </h1>
+                  <span
+                    className="mono-label"
+                    style={{ color: "var(--ai)", border: "1px solid rgba(249,115,22,0.35)", borderRadius: "9999px", padding: "2px 9px", fontSize: "11px" }}
+                  >
+                    AI
+                  </span>
+                </div>
               </div>
-              <p style={{ margin: 0, fontSize: "14.5px", color: "#A9A6BD", lineHeight: 1.45 }}>
+              <p style={{ margin: 0, fontSize: "14.5px", color: "var(--cream-400)", lineHeight: 1.45 }}>
                 Ask me anything about Kavya's professional background - her projects, skills, and experience.
               </p>
             </div>
@@ -325,11 +361,12 @@ export default function DigitalTwinChat() {
                     style={{
                       maxWidth: m.role === "user" ? undefined : "100%",
                       padding: "12px 16px",
-                      borderRadius: m.role === "user" ? "18px 18px 4px 18px" : "18px 18px 18px 4px",
+                      borderRadius: m.role === "user" ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
                       fontSize: "15px",
                       lineHeight: 1.55,
-                      background: m.role === "user" ? "#EEF0FF" : "#F5F5F7",
-                      color: "#211C36",
+                      background: m.role === "user" ? "rgba(139,92,246,0.14)" : "var(--ink-900)",
+                      border: m.role === "user" ? "1px solid rgba(139,92,246,0.35)" : "1px solid rgba(255,255,255,0.08)",
+                      color: "var(--cream-100)",
                     }}
                   >
                     {m.role === "assistant" ? (
@@ -344,15 +381,16 @@ export default function DigitalTwinChat() {
                         style={{
                           marginTop: "10px",
                           paddingTop: "8px",
-                          borderTop: "1px solid rgba(0,0,0,0.08)",
-                          fontSize: "12.5px",
-                          color: "#6B7280",
+                          borderTop: "1px solid rgba(255,255,255,0.08)",
+                          fontSize: "12px",
+                          color: "var(--cream-400)",
                           display: "flex",
                           flexWrap: "wrap",
+                          alignItems: "center",
                           gap: "10px",
                         }}
                       >
-                        <span>Sources:</span>
+                        <span className="mono-label" style={{ fontSize: "11px" }}>Sources</span>
                         {m.sources.map((s, idx) =>
                           s.url ? (
                             <a
@@ -360,12 +398,12 @@ export default function DigitalTwinChat() {
                               href={s.url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              style={{ color: "#A855F7" }}
+                              style={{ color: "var(--data)", fontFamily: "'IBM Plex Mono', monospace", fontSize: "12px" }}
                             >
                               {s.title}
                             </a>
                           ) : (
-                            <span key={idx}>{s.title}</span>
+                            <span key={idx} style={{ fontFamily: "'IBM Plex Mono', monospace" }}>{s.title}</span>
                           )
                         )}
                       </div>
@@ -377,7 +415,7 @@ export default function DigitalTwinChat() {
               {isThinking && (
                 <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", gap: "8px", padding: "4px 2px" }}>
                   <div className="thinking-orb" />
-                  <span style={{ fontSize: "13.5px", color: "#9CA3AF" }}>thinking</span>
+                  <span className="mono-label" style={{ fontSize: "12.5px" }}>thinking</span>
                 </div>
               )}
               <div ref={scrollRef} />
@@ -385,7 +423,7 @@ export default function DigitalTwinChat() {
           </div>
 
           {/* Input */}
-          <div style={{ borderTop: "1px solid rgba(20, 18, 31, 0.08)", display: "flex", justifyContent: "center", flexShrink: 0 }}>
+          <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "center", flexShrink: 0 }}>
             <div className="input-outer" style={{ width: "100%", maxWidth: "880px" }}>{renderInputBar("bar")}</div>
           </div>
         </>
