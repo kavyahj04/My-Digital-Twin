@@ -61,7 +61,7 @@ def execute_tool_calls(message, messages:list[dict]) -> list[dict]:
     return messages
 
 def run_converstion(messages:list[dict]) -> str:
-    response = openai_client.chat.completions.create(model = "gpt-5.6-luna", messages= messages, tools = TOOLS, tool_choice="auto")
+    response = openai_client.chat.completions.create(model = "gpt-5.6-luna", messages= messages, tools = TOOLS, tool_choice="auto", reasoning_effort="none")
     message = response.choices[0].message
     rounds = 0
     while response.choices[0].finish_reason=="tool_calls":
