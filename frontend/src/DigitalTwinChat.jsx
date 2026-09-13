@@ -1,7 +1,8 @@
 import { useState, useRef, useEffect } from "react";
-import { Send, Sparkles } from "lucide-react";
+import { Send } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import logo from "../icon.png";
 
 
 const API_URL = "https://my-digital-twin-fkkv.onrender.com/chat";
@@ -73,14 +74,22 @@ export default function DigitalTwinChat() {
           display: "flex",
           gap: "10px",
           alignItems: "center",
-          background: "var(--ink-900)",
+          background: isHero ? "var(--ink-900)" : "#FFFFFF",
           borderRadius: "9999px",
           overflow: "hidden",
-          border: inputFocused ? "1px solid var(--iface)" : "1px solid rgba(255,255,255,0.1)",
-          boxShadow: inputFocused
-            ? "0 0 0 3px rgba(47,107,255,0.25)"
-            : isHero
-            ? "0 8px 30px rgba(0,0,0,0.35)"
+          border: isHero
+            ? inputFocused
+              ? "1px solid var(--iface)"
+              : "1px solid rgba(255,255,255,0.1)"
+            : inputFocused
+            ? "1.5px solid var(--ai)"
+            : "1.5px solid rgba(249,115,22,0.55)",
+          boxShadow: isHero
+            ? inputFocused
+              ? "0 0 0 3px rgba(47,107,255,0.25)"
+              : "0 8px 30px rgba(0,0,0,0.35)"
+            : inputFocused
+            ? "0 0 0 3px rgba(249,115,22,0.18)"
             : "none",
           padding: isHero ? "10px 12px 10px 22px" : "6px 8px 6px 20px",
           transition: "box-shadow 0.15s ease, border-color 0.15s ease",
@@ -103,7 +112,7 @@ export default function DigitalTwinChat() {
             outline: "none",
             background: "transparent",
             fontFamily: "'IBM Plex Sans', sans-serif",
-            color: "var(--cream-100)",
+            color: isHero ? "var(--cream-100)" : "var(--ink-950)",
           }}
         />
         <button
@@ -178,7 +187,7 @@ export default function DigitalTwinChat() {
         }
 
         .hero-section { padding: 24px 32px; }
-        .hero-heading { font-size: 40px; }
+        .hero-heading { font-size: 40px; line-height: 1.3; }
         .header-bar { padding: 20px 32px; }
         .messages-inner { padding: 28px 32px; }
         .input-outer { padding: 18px 32px 24px; }
@@ -186,7 +195,7 @@ export default function DigitalTwinChat() {
 
         @media (max-width: 640px) {
           .hero-section { padding: 16px 16px; gap: 20px !important; }
-          .hero-heading { font-size: 24px !important; line-height: 1.25; }
+          .hero-heading { font-size: 24px !important; line-height: 1.3; }
           .header-bar { padding: 14px 16px !important; }
           .header-bar h1 { font-size: 19px !important; }
           .header-bar p { font-size: 13px !important; }
@@ -194,7 +203,6 @@ export default function DigitalTwinChat() {
           .input-outer { padding: 10px 12px 14px !important; }
           .msg-bubble { max-width: 88% !important; font-size: 14.5px !important; }
           .gradient-ring { width: 34px !important; height: 34px !important; }
-          .gradient-ring > div { width: 28px !important; height: 28px !important; }
         }
 
         @media (max-width: 380px) {
@@ -210,17 +218,16 @@ export default function DigitalTwinChat() {
           .input-outer { padding: 10px 20px 12px !important; }
         }
 
-        @keyframes orb-spin { to { transform: rotate(360deg); } }
         @keyframes orb-breathe {
-          0%, 100% { transform: scale(0.85); opacity: 0.75; }
+          0%, 100% { transform: scale(0.85); opacity: 0.6; }
           50% { transform: scale(1.15); opacity: 1; }
         }
         .thinking-orb {
-          width: 20px;
-          height: 20px;
+          width: 12px;
+          height: 12px;
           border-radius: 9999px;
-          background: conic-gradient(from 0deg, var(--user), var(--iface), var(--api), var(--ai), var(--data), var(--user));
-          animation: orb-spin 1.6s linear infinite, orb-breathe 1.6s ease-in-out infinite;
+          background: var(--ai);
+          animation: orb-breathe 1.2s ease-in-out infinite;
         }
         @media (prefers-reduced-motion: reduce) {
           .thinking-orb { animation: none; }
@@ -228,7 +235,6 @@ export default function DigitalTwinChat() {
         }
 
         .gradient-bar { background: linear-gradient(90deg, var(--user), var(--iface), var(--api), var(--ai), var(--data)); }
-        .gradient-ring { background: var(--ink-800); border: 2px solid var(--ai); }
 
         .send-btn { background: var(--ai); transition: transform 0.15s ease, box-shadow 0.15s ease; }
         .send-btn:hover:not(:disabled) { transform: scale(1.06); box-shadow: 0 6px 20px rgba(249, 115, 22, 0.35); }
@@ -238,7 +244,7 @@ export default function DigitalTwinChat() {
         .chat-input:focus-visible { outline: none; }
 
         .chat-scroll::-webkit-scrollbar { width: 8px; }
-        .chat-scroll::-webkit-scrollbar-thumb { background: var(--ink-700); border-radius: 999px; }
+        .chat-scroll::-webkit-scrollbar-thumb { background: var(--cream-300); border-radius: 999px; }
 
         .hero-bg {
           background: radial-gradient(circle at 65% 45%, rgba(249, 115, 22, 0.10), transparent 55%),
@@ -314,20 +320,17 @@ export default function DigitalTwinChat() {
           >
             <div style={{ maxWidth: "880px", width: "100%", margin: "0 auto", display: "flex", flexDirection: "column", gap: "6px" }}>
               <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-                <div
+                <img
+                  src={logo}
+                  alt="Kavya's Digital Twin logo"
                   className="gradient-ring"
                   style={{
                     width: "42px",
                     height: "42px",
-                    borderRadius: "9999px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
+                    borderRadius: "12px",
                     flexShrink: 0,
                   }}
-                >
-                  <Sparkles size={17} color="var(--ai)" />
-                </div>
+                />
                 <div style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}>
                   <h1
                     style={{ fontFamily: "'Bricolage Grotesque', sans-serif", fontWeight: 700, fontSize: "24px", margin: 0, color: "var(--cream-100)" }}
@@ -351,7 +354,7 @@ export default function DigitalTwinChat() {
           {/* Messages */}
           <div
             className="chat-scroll"
-            style={{ flex: 1, overflowY: "auto", display: "flex", justifyContent: "center" }}
+            style={{ flex: 1, overflowY: "auto", display: "flex", justifyContent: "center", background: "var(--cream-100)" }}
           >
             <div className="messages-inner" style={{ width: "100%", maxWidth: "880px", display: "flex", flexDirection: "column", gap: "16px" }}>
               {messages.map((m, i) => (
@@ -364,9 +367,9 @@ export default function DigitalTwinChat() {
                       borderRadius: m.role === "user" ? "16px 16px 4px 16px" : "16px 16px 16px 4px",
                       fontSize: "15px",
                       lineHeight: 1.55,
-                      background: m.role === "user" ? "rgba(139,92,246,0.14)" : "var(--ink-900)",
-                      border: m.role === "user" ? "1px solid rgba(139,92,246,0.35)" : "1px solid rgba(255,255,255,0.08)",
-                      color: "var(--cream-100)",
+                      background: m.role === "user" ? "#FFFFFF" : "var(--ink-950)",
+                      border: m.role === "user" ? "1.5px solid var(--ai)" : "1.5px solid var(--ai)",
+                      color: m.role === "user" ? "var(--ink-950)" : "var(--cream-100)",
                     }}
                   >
                     {m.role === "assistant" ? (
@@ -415,7 +418,7 @@ export default function DigitalTwinChat() {
               {isThinking && (
                 <div style={{ display: "flex", justifyContent: "flex-start", alignItems: "center", gap: "8px", padding: "4px 2px" }}>
                   <div className="thinking-orb" />
-                  <span className="mono-label" style={{ fontSize: "12.5px" }}>thinking</span>
+                  <span className="mono-label" style={{ fontSize: "12.5px", color: "var(--ink-500)" }}>thinking</span>
                 </div>
               )}
               <div ref={scrollRef} />
@@ -423,7 +426,7 @@ export default function DigitalTwinChat() {
           </div>
 
           {/* Input */}
-          <div style={{ borderTop: "1px solid rgba(255,255,255,0.1)", display: "flex", justifyContent: "center", flexShrink: 0 }}>
+          <div style={{ borderTop: "1px solid rgba(0,0,0,0.08)", background: "var(--cream-100)", display: "flex", justifyContent: "center", flexShrink: 0 }}>
             <div className="input-outer" style={{ width: "100%", maxWidth: "880px" }}>{renderInputBar("bar")}</div>
           </div>
         </>
