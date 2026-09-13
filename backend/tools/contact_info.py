@@ -1,5 +1,9 @@
 import json
+import os
 from datetime import datetime, timezone
+
+import gspread
+from google.oauth2.service_account import Credentials
 
 
 COLLECT_CONTACT_INFO_SCHEMA = {
@@ -25,21 +29,30 @@ COLLECT_CONTACT_INFO_SCHEMA = {
     }
 }
 
-LEADS_FILE = "leads.jsonl"
+SCOPES = ["https://www.googleapis.com/auth/spreadsheets"]
+
+_worksheet = None
+
+def _get_worksheet():
+    global _worksheet
+    if _worksheet is None:
+        creds_json = os.getenv("GOOGLE_SERVICE_ACCOUNT_JSON")
+        sheet_id = os.getenv("LEADS_SHEET_ID")
+        if not creds_json or not sheet_id:
+            raise RuntimeError(
+                "GOOGLE_SERVICE_ACCOUNT_JSON and LEADS_SHEET_ID must be set to record leads"
+            )
+        creds = Credentials.from_service_account_info(json.loads(creds_json), scopes=SCOPES)
+        client = gspread.authorize(creds)
+        _worksheet = client.open_by_key(sheet_id).sheet1
+    return _worksheet
 
 def collect_contact_info(name:str, email:str, phone:str| None = None, reason:str|None = None) -> dict:
-    lead = {
-        "name" : name,
-        "email" : email,
-        "phone" : phone,
-        "reason" : reason,
-        "captured_at" : datetime.now(timezone.utc).isoformat(),
-    }
+    timestamp = datetime.now(timezone.utc).strftime("%Y-%m-%d %I:%M %p UTC")
+    row = [timestamp, name, email, phone or "", reason or ""]
+    _get_worksheet().append_row(row)
 
-    with open(LEADS_FILE, "a", encoding="utf-8") as f:
-        f.write(json.dumps(lead) + "\n")
-    
     return {
         "status" : "success",
-        "message" : "Thanks {name}, your info has been recorded"
+        "message" : f"Thanks {name}, your info has been recorded"
     }
