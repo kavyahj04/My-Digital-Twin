@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { Plus, Send, Sparkles } from "lucide-react";
+import { Send, Sparkles } from "lucide-react";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 
@@ -86,7 +86,6 @@ export default function DigitalTwinChat() {
           transition: "box-shadow 0.15s ease, border-color 0.15s ease",
         }}
       >
-        {isHero && <Plus size={20} color="#9CA3AF" style={{ flexShrink: 0 }} />}
         <input
           className="chat-input"
           value={input}
